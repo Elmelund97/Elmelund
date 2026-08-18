@@ -1,0 +1,551 @@
+```html
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casper Elmelund Poulsen | Portfolio</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0b0f;
+            color: #f4f4f5;
+            line-height: 1.6;
+        }
+
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(11, 11, 15, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #a855f7;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #c084fc;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 25px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: #7c3aed;
+            filter: blur(180px);
+            opacity: 0.15;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .hero-content {
+            max-width: 850px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero small {
+            color: #c084fc;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.8rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            line-height: 0.95;
+            margin: 25px 0;
+            letter-spacing: -4px;
+        }
+
+        .hero h1 span {
+            color: #c084fc;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: auto;
+            color: #b5b5bd;
+            font-size: 1.15rem;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 13px 24px;
+            border: 1px solid #a855f7;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            background: #a855f7;
+            transform: translateY(-2px);
+        }
+
+        /* SECTIONS */
+        section {
+            max-width: 1100px;
+            margin: auto;
+            padding: 110px 25px;
+        }
+
+        .section-label {
+            color: #a855f7;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.75rem;
+            margin-bottom: 12px;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 35px;
+        }
+
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: start;
+        }
+
+        .about p {
+            color: #b5b5bd;
+            font-size: 1.05rem;
+        }
+
+        /* SKILLS */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill {
+            padding: 10px 17px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 25px;
+            color: #ddd;
+            background: rgba(255,255,255,0.03);
+            transition: 0.3s;
+        }
+
+        .skill:hover {
+            border-color: #a855f7;
+            transform: translateY(-3px);
+        }
+
+        /* PROJECTS */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .project {
+            min-height: 330px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 18px;
+            background: linear-gradient(
+                145deg,
+                rgba(255,255,255,0.05),
+                rgba(255,255,255,0.015)
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: 0.4s;
+        }
+
+        .project:hover {
+            transform: translateY(-8px);
+            border-color: rgba(192,132,252,0.6);
+        }
+
+        .project-year {
+            color: #c084fc;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .project h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .project p {
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        /* EXPERIENCE */
+        .experience {
+            border-left: 1px solid #a855f7;
+            padding-left: 30px;
+        }
+
+        .experience h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .experience p {
+            color: #aaa;
+        }
+
+        /* CONTACT */
+        .contact {
+            text-align: center;
+        }
+
+        .contact p {
+            color: #aaa;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .social {
+            margin-top: 30px;
+        }
+
+        .social a {
+            color: #c084fc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.85rem;
+        }
+
+        /* MOBILE */
+        @media (max-width: 800px) {
+            nav ul {
+                gap: 12px;
+            }
+
+            nav a {
+                font-size: 0.75rem;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .projects {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+    <div class="nav-container">
+        <div class="logo">CEP<span>.</span></div>
+
+        <ul>
+            <li><a href="#about">Om mig</a></li>
+            <li><a href="#skills">Kompetencer</a></li>
+            <li><a href="#projects">Projekter</a></li>
+            <li><a href="#contact">Kontakt</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<!-- HERO -->
+<header class="hero">
+    <div class="hero-content">
+
+        <small>Digital Transformation · Creative Technology · Art</small>
+
+        <h1>
+            Casper<br>
+            <span>Elmelund Poulsen</span>
+        </h1>
+
+        <p>
+            Kandidatstuderende i Digital Transformation på Roskilde Universitet
+            med en passion for kreativ teknologi, kunstinstallationer og
+            design.
+        </p>
+
+        <a href="#projects" class="button">
+            Se mine projekter ↓
+        </a>
+
+    </div>
+</header>
+
+
+<!-- ABOUT -->
+<section id="about">
+
+    <div class="section-label">01 — Om mig</div>
+
+    <div class="about">
+
+        <div>
+            <h2>Teknologi møder kreativitet.</h2>
+        </div>
+
+        <div>
+            <p>
+                Jeg er kandidatstuderende i Digital Transformation på
+                Roskilde Universitet med en stærk interesse for krydsfeltet
+                mellem teknologi, design og kunst.
+            </p>
+
+            <br>
+
+            <p>
+                Gennem flere år har jeg arbejdet kreativt med at udvikle og
+                skabe kunstudstillinger og installationer til Roskilde
+                Festival. Jeg brænder især for at omsætte idéer til fysiske
+                og interaktive oplevelser, hvor teknologi bliver en del af
+                det kunstneriske udtryk.
+            </p>
+
+            <br>
+
+            <p>
+                I min fritid bruger jeg meget af min tid på kreative projekter,
+                hvor jeg kombinerer digital design, 3D-modellering,
+                elektronik, lys og fabrication. Jeg elsker processen fra den
+                første idé og skitse til det færdige værk.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SKILLS -->
+<section id="skills">
+
+    <div class="section-label">02 — Kompetencer</div>
+
+    <h2>Det jeg arbejder med.</h2>
+
+    <div class="skills">
+
+        <div class="skill">Photoshop</div>
+        <div class="skill">Arduino UNO</div>
+        <div class="skill">Fusion</div>
+        <div class="skill">Laser Cutting</div>
+        <div class="skill">3D Printing</div>
+        <div class="skill">ZBrush</div>
+        <div class="skill">3D Modelling</div>
+        <div class="skill">Video Editing</div>
+        <div class="skill">Digital Design</div>
+        <div class="skill">Creative Technology</div>
+        <div class="skill">Art Installations</div>
+        <div class="skill">Concept Development</div>
+
+    </div>
+
+</section>
+
+
+<!-- PROJECTS -->
+<section id="projects">
+
+    <div class="section-label">03 — Udvalgte projekter</div>
+
+    <h2>Roskilde Festival.</h2>
+
+    <div class="projects">
+
+        <article class="project">
+
+            <div>
+                <div class="project-year">2024</div>
+
+                <h3>Den interaktive paraply</h3>
+
+                <p>
+                    En interaktiv kunstinstallation udviklet til Roskilde
+                    Festival, hvor teknologi og kreativt design blev
+                    kombineret til en anderledes festivaloplevelse.
+                </p>
+            </div>
+
+        </article>
+
+
+        <article class="project">
+
+            <div>
+                <div class="project-year">2025</div>
+
+                <h3>Den lysende drage</h3>
+
+                <p>
+                    En større kreativ installation med fokus på lys,
+                    formgivning og atmosfære i festivalens visuelle miljø.
+                </p>
+            </div>
+
+        </article>
+
+
+        <article class="project">
+
+            <div>
+                <div class="project-year">2026</div>
+
+                <h3>Fremtidens skove</h3>
+
+                <p>
+                    Et univers af fremtidige skove og creatures med blandt
+                    andet en lysende guldsmed som en del af installationens
+                    visuelle fortælling.
+                </p>
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- EXPERIENCE -->
+<section>
+
+    <div class="section-label">04 — Erfaring</div>
+
+    <div class="experience">
+
+        <h3>Flere års kreativ udvikling til Roskilde Festival</h3>
+
+        <p>
+            Gennem flere år har jeg været involveret i udviklingen og
+            skabelsen af designs og kunstinstallationer til Roskilde
+            Festival. Arbejdet har givet mig erfaring med hele den kreative
+            proces — fra idéudvikling og koncept til design, modellering,
+            fabrication og det færdige værk.
+        </p>
+
+        <br>
+
+        <p>
+            Jeg arbejder gerne eksperimenterende og lærer gennem processen,
+            især når digitale værktøjer, elektronik og fysisk produktion kan
+            kombineres med kunst og design.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+
+    <div class="section-label">05 — Kontakt</div>
+
+    <h2>Lad os skabe noget.</h2>
+
+    <p>
+        Er du interesseret i kreativ teknologi, digital transformation,
+        kunstinstallationer eller et spændende projekt, er du meget
+        velkommen til at kontakte mig.
+    </p>
+
+    <div class="social">
+        <a href="https://www.linkedin.com/in/elmelund-cp"
+           target="_blank"
+           rel="noopener noreferrer">
+            LinkedIn →
+        </a>
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+    © 2026 Casper Elmelund Poulsen · Portfolio
+</footer>
+
+</body>
+</html>
+```
