@@ -291,33 +291,113 @@
             <span>paraply_styring.ino</span>
         </div>
         <pre><code>// Indsæt din Arduino-kode herunder:
+#include <Servo.h>
+Servo servo1;
+Servo servo2;
+Servo servo3;
+Servo servo4; 
+Servo servo5; 
+Servo servo6; 
 
-#include &lt;Adafruit_NeoPixel.h&gt;
-
-#define LED_PIN    6
-#define LED_COUNT 60
-
-Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+int pos = 0;
+bool lastState = false;
+bool personNear = false;
 
 void setup() {
-  strip.begin();
-  strip.show(); // Nulstil alle pixels
+  Serial.begin(9600);
+  servo1.attach(8);   
+  servo2.attach(9);
+  servo3.attach(10);
+  servo4.attach(11);
+  servo5.attach(12);
+  servo6.attach(13);
 }
 
 void loop() {
-  // Din styringskode til lys og sensorer
-  rainbow(20);
+  Serial.println(analogRead(A0));     //antal bevægelsessensor vi bruger og deres placering
+  Serial.println(analogRead(A1));
+  Serial.println(analogRead(A2));
+  Serial.println(analogRead(A3));
+  // myservo.write(pos);
+
+/*
+ if (analogRead(A0) <  100 && pos <  95) {
+    pos = pos + 1; 
+  } else if (analogRead(A0) >  100 && pos > 0) {
+    pos = pos - 1;
+  }
+  */
+  if((analogRead(A0) >= 200) || (analogRead(A1) >= 200) || (analogRead(A2) >= 200) || (analogRead(A3) >= 200))
+  {
+    personNear = true;
+    Serial.println("PN t");
+  }
+  else
+    personNear = false;
+
+  if((personNear == true) && (lastState == false))
+  {
+     lower();
+     lastState = true;
+     Serial.println("now True");
+     delay(2000);
+     return;
+
+  }
+
+  if((personNear == false) && (lastState == true))
+  {
+     raise();
+     lastState = false;
+      Serial.println("now False");
+      delay(2000);
+      return;
+  }
+    //Serial.println(pos);
+/*
+  pos = constrain(pos, 0, 95);
+  servo1.write(95 + pos);       //antal servo der kobles på dvs. servo1,2,3,4 osv.
+  servo2.write(95 + pos); 
+  servo3.write(95 + pos); 
+  servo4.write(95 + pos);
+  servo5.write(95 + pos);
+  servo6.write(95 + pos);
+*/
+  delay(500);
 }
 
-void rainbow(int wait) {
-  for(long firstPixelHue = 0; firstPixelHue &lt; 5*65536; firstPixelHue += 256) {
-    for(int i=0; i&lt;strip.numPixels(); i++) {
-      int pixelHue = firstPixelHue + (i * 65536L / strip.numPixels());
-      strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(pixelHue)));
+void raise()
+{
+    for(int i = 10; i<= 90; i++)
+    {
+      servo1.write(i);       //antal servo der kobles på dvs. servo1,2,3,4 osv.
+      servo2.write(i); 
+      servo3.write(i); 
+      servo4.write(i);
+      servo5.write(i);
+      servo6.write(i);
+      delay(30);        //Ændre hastighed på armene
+      
     }
-    strip.show();
-    delay(wait);
-  }
+}
+
+void lower()
+{
+    for(int i = 90; i>= 10; i--)
+    {
+      servo1.write(i);       //antal servo der kobles på dvs. servo1,2,3,4 osv.
+      servo2.write(i); 
+      servo3.write(i); 
+      servo4.write(i);
+      servo5.write(i);
+      servo6.write(i);
+      delay(30);      //Ændre hastighed på armene
+      
+    }
+}
+
+
+
 }</code></pre>
     </div>
 
