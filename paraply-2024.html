@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Den interaktive paraply (2024) | Casper Elmelund Poulsen</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0b0f;
+            color: #f4f4f5;
+            line-height: 1.6;
+        }
+
+        /* NAVIGATION & HEADER */
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 60px 25px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #c084fc;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 40px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .project-year {
+            color: #c084fc;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .project-header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 20px;
+        }
+
+        .project-description {
+            color: #b5b5bd;
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        /* HERO BILLEDE I MIDTEN */
+        .main-image-container {
+            width: 100%;
+            margin: 40px 0 80px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .main-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .section-title {
+            color: #a855f7;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        /* TIDSLINJE */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid rgba(168, 85, 247, 0.3);
+            margin-bottom: 90px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -37px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #a855f7;
+            box-shadow: 0 0 10px #a855f7;
+        }
+
+        .timeline-date {
+            color: #c084fc;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        .timeline-content p {
+            color: #b5b5bd;
+            margin-bottom: 20px;
+        }
+
+        .timeline-image {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        /* ARDUINO KODE SEKTION */
+        .code-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .code-header span {
+            font-family: monospace;
+            color: #c084fc;
+            font-size: 0.9rem;
+        }
+
+        pre {
+            background: #050508;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #4ade80; /* Grøn kodefarve */
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- TILBAGE KNAP -->
+    <a href="index.html" class="back-link">← Tilbage til portfolio</a>
+
+    <!-- OVERSKRIFT & KORT BESKRIVELSE -->
+    <header class="project-header">
+        <div class="project-year">Roskilde Festival · 2024</div>
+        <h1>Den interaktive paraply</h1>
+        <p class="project-description">
+            En interaktiv kunstinstallation udviklet til Roskilde Festival. 
+            Projektet kombinerede sensorer, lysprogrammering og interaktivt design 
+            for at skabe en anderledes lysoplevelse for festivalgængerne.
+        </p>
+    </header>
+
+    <!-- BILLEDE I MIDTEN -->
+    <div class="main-image-container">
+        <!-- Udskift 'billede-paraply-hoved.jpg' med sti til dit eget billede -->
+        <img src="billede-paraply-hoved.jpg" alt="Den interaktive paraply færdigt resultat">
+    </div>
+
+    <!-- PROCESSEN / TIDSLINJE -->
+    <div class="section-title">Processen</div>
+    <h2>Fra idé til installation</h2>
+
+    <div class="timeline">
+
+        <!-- STEP 1 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 1 · IDÉ & SKITSER</div>
+            <div class="timeline-content">
+                <h3>Konceptudvikling & Research</h3>
+                <p>
+                    De første tanker omkring hvordan en almindelig genstand som en paraply 
+                    kunne forvandles til et interaktivt lysværk. Der blev lavet skitser over 
+                    placering af lysdioder og sensorer.
+                </p>
+                <img src="billede-skitse.jpg" alt="Skitser af paraplyen" class="timeline-image">
+            </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 2 · ELEKTRONIK & PROTOTYPE</div>
+            <div class="timeline-content">
+                <h3>Arduino & Prototype-test</h3>
+                <p>
+                    Test af Arduino-mikrocontrolleren, lodning af NeoPixel LED-strips og 
+                    opsætning af sensorer på breadboard for at tjekke lysmønstre og respons.
+                </p>
+                <img src="billede-prototype.jpg" alt="Elektronik prototype test" class="timeline-image">
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 3 · FABRICATION & MONTERING</div>
+            <div class="timeline-content">
+                <h3>Fysisk samling</h3>
+                <p>
+                    Montering af elektronikken i selve paraplystativet. Ledninger blev skjult, 
+                    og strukturen blev forstærket, så den kunne modstå vind og vejr på Roskilde Festival.
+                </p>
+                <img src="billede-montering.jpg" alt="Montering af paraplyen" class="timeline-image">
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 4 · OPSTILLING PÅ FESTIVALEN</div>
+            <div class="timeline-content">
+                <h3>Det færdige resultat</h3>
+                <p>
+                    Installation på festivalpladsen, hvor publikum kunne interagere med paraplyen 
+                    og opleve, hvordan lyset reagerede på deres bevægelser.
+                </p>
+                <img src="billede-faerdig.jpg" alt="Paraplyen på Roskilde Festival" class="timeline-image">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ARDUINO KODE SEKTION -->
+    <div class="section-title">Teknikken</div>
+    <h2>Arduino Kildekode</h2>
+
+    <div class="code-section">
+        <div class="code-header">
+            <span>paraply_styring.ino</span>
+        </div>
+        <pre><code>// Indsæt din Arduino-kode herunder:
+
+#include &lt;Adafruit_NeoPixel.h&gt;
+
+#define LED_PIN    6
+#define LED_COUNT 60
+
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+void setup() {
+  strip.begin();
+  strip.show(); // Nulstil alle pixels
+}
+
+void loop() {
+  // Din styringskode til lys og sensorer
+  rainbow(20);
+}
+
+void rainbow(int wait) {
+  for(long firstPixelHue = 0; firstPixelHue &lt; 5*65536; firstPixelHue += 256) {
+    for(int i=0; i&lt;strip.numPixels(); i++) {
+      int pixelHue = firstPixelHue + (i * 65536L / strip.numPixels());
+      strip.setPixelColor(i, strip.gamma32(strip.ColorHSV(pixelHue)));
+    }
+    strip.show();
+    delay(wait);
+  }
+}</code></pre>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Casper Elmelund Poulsen · Portfolio
+</footer>
+
+</body>
+</html>
