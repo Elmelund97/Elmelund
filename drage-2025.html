@@ -64,13 +64,13 @@
             margin: auto;
         }
 
-        /* HERO BILLEDE I MIDTEN (CENTRERET MED AUTO MARGIN & 50% BREDDE) */
+        /* ENKELT HERO BILLEDE I TOPPEN */
         .main-image-container {
-            width: 50%;
+            width: 60%;
             margin: 40px auto 80px;
             border-radius: 18px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .main-image-container img {
@@ -146,6 +146,82 @@
             object-fit: cover;
         }
 
+        /* SLIDER STYLING INDE I FASE 1 */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .slider {
+            display: flex;
+            width: 100%;
+        }
+
+        .slide {
+            width: 100%;
+            display: none;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        /* PILE TIL NAVIGATION */
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(11, 11, 15, 0.7);
+            color: #c084fc;
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            font-size: 1rem;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: 0.3s;
+            user-select: none;
+        }
+
+        .prev:hover, .next:hover {
+            background: #a855f7;
+            color: white;
+        }
+
+        .prev { left: 10px; }
+        .next { right: 10px; }
+
+        /* MIDTERSTILLEDE LINJER */
+        .dots-container {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 20px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active, .dot:hover {
+            background: #c084fc;
+            width: 30px;
+        }
+
         /* ARDUINO KODE SEKTION */
         .code-section {
             background: rgba(255, 255, 255, 0.03);
@@ -191,6 +267,12 @@
             border-top: 1px solid rgba(255,255,255,0.08);
             font-size: 0.85rem;
         }
+
+        @media (max-width: 800px) {
+            .main-image-container {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -207,14 +289,13 @@
         <p class="project-description">
             En større kreativ installation med fokus på lys, formgivning og atmosfære 
             i festivalens visuelle miljø. Dragestrukturen kombinerede dynamiske lysanimationer 
-            med organiske former for at skabe et organisk blikfang i nattetimerne.
+            med organiske formsvar for at skabe et blikfang i nattetimerne.
         </p>
     </header>
 
-    <!-- BILLEDE I MIDTEN -->
+    <!-- 1 ENKELT BILLEDE UNDER BESKRIVELSEN -->
     <div class="main-image-container">
-        <!-- Udskift med navnet på dit uploadede billede -->
-        <img src="billede-drage-hoved.jpg" alt="Den lysende drage færdigt resultat">
+        <img src="Top B Drage.jpg" alt="Den lysende drage færdigt resultat">
     </div>
 
     <!-- PROCESSEN / TIDSLINJE -->
@@ -223,7 +304,7 @@
 
     <div class="timeline">
 
-        <!-- STEP 1 -->
+        <!-- STEP 1 MED BILLEDE-SLIDER -->
         <div class="timeline-item">
             <div class="timeline-dot"></div>
             <div class="timeline-date">FASE 1 · FORM & DESIGN</div>
@@ -234,7 +315,24 @@
                     Der blev lagt vægt på at skabe en let, men stærk konstruktion, 
                     som ville se dynamisk ud både om dagen og oplyst om natten.
                 </p>
-                <img src="billede-drage-skitse.jpg" alt="3D model af dragen" class="timeline-image">
+
+                <!-- BILLEDE SLIDER PLACERET HER I FASE 1 -->
+                <div class="slider-container">
+                    <div class="slider">
+                        <img src="D1.jpeg" class="slide active" alt="Fase 1 - Billede 1">
+                        <img src="D2.jpeg" class="slide" alt="Fase 1 - Billede 2">
+                        <img src="D3.jpeg" class="slide" alt="Fase 1 - Billede 3">
+                    </div>
+
+                    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide(0)"></span>
+                        <span class="dot" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -248,7 +346,7 @@
                     Udvikling af tilpassede lyssekvenser, der efterligner dragens "åndedræt" 
                     og energibølger langs kroppen. Elektronikken blev samlet og testet på værkstedet.
                 </p>
-                <img src="billede-drage-elektronik.jpg" alt="Test af lyssekvenser" class="timeline-image">
+                <img src="D5.jpeg" alt="Test af lyssekvenser" class="timeline-image">
             </div>
         </div>
 
@@ -262,7 +360,7 @@
                     Bygning af det bærende skelet og montering af de lysdiffunderende materialer. 
                     Hele strukturen blev sikret mod regn og vind til udendørs brug.
                 </p>
-                <img src="billede-drage-byg.jpg" alt="Bygning af dragens skelet" class="timeline-image">
+                <img src="D4.jpeg" alt="Bygning af dragens skelet" class="timeline-image">
             </div>
         </div>
 
@@ -276,7 +374,7 @@
                     Endelig montering og opstilling på festivalpladsen, hvor dragen lyste op 
                     og skabte en helt særlig stemning for de forbipasserende gæster.
                 </p>
-                <img src="billede-drage-faerdig.jpg" alt="Den lysende drage på Roskilde" class="timeline-image">
+                <img src="D7.jpeg" alt="Den lysende drage på Roskilde" class="timeline-image">
             </div>
         </div>
 
@@ -291,33 +389,44 @@
             <span>drage_styring.ino</span>
         </div>
         <pre><code>// Indsæt din Arduino-kode til dragen herunder:
+#include <Adafruit_NeoPixel.h>
 
-#include &lt;Adafruit_NeoPixel.h&gt;
+#define PIN 9
 
-#define LED_PIN    5
-#define LED_COUNT 120
 
-Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+#define NUMPIXELS 270
+
+Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+
 
 void setup() {
-  strip.begin();
-  strip.show();
+  pixels.begin();
+
+  pixels.clear();
+
 }
 
 void loop() {
-  // Bølge- og åndedrætseffekter til dragen
-  pulseEffect(200, 50, 0); // Varm rød/orange glød
+
+// Changes the delay in all for loops
+int del = 5;
+
+    for (int i = 0; i < NUMPIXELS; i++)
+    {
+      pixels.setPixelColor(i, pixels.Color(255, 0, 0));
+      pixels.show();
+      delay(del);
+    }
+      for (int i = 0; i < NUMPIXELS; i++)
+    {
+      pixels.setPixelColor(i, pixels.Color(255, 255, 255));
+      pixels.show();
+      delay(del);
+    }
 }
 
-void pulseEffect(int r, int g, int b) {
-  for(int i = 0; i &lt; 255; i++) {
-    strip.setBrightness(i);
-    for(int j = 0; j &lt; strip.numPixels(); j++) {
-      strip.setPixelColor(j, strip.Color(r, g, b));
-    }
-    strip.show();
-    delay(10);
-  }
+
+
 }</code></pre>
     </div>
 
@@ -326,6 +435,32 @@ void pulseEffect(int r, int g, int b) {
 <footer>
     © 2026 Casper Elmelund Poulsen · Portfolio
 </footer>
+
+<!-- JAVASCRIPT TIL SLIDEREN INNE I FASE 1 -->
+<script>
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+
+    function showSlide(index) {
+        if (index >= slides.length) slideIndex = 0;
+        if (index < 0) slideIndex = slides.length - 1;
+
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        slides[slideIndex].classList.add('active');
+        dots[slideIndex].classList.add('active');
+    }
+
+    function moveSlide(step) {
+        showSlide(slideIndex += step);
+    }
+
+    function currentSlide(index) {
+        showSlide(slideIndex = index);
+    }
+</script>
 
 </body>
 </html>
