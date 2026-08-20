@@ -360,28 +360,32 @@
                 </p>
 
                 <!-- Slider i Fase 2 (Video, Billede, Video, Billede) -->
-                <div class="slider-container" id="slider2">
-                    <div class="slider">
-                        <video class="slide active timeline-media" autoplay loop muted playsinline>
-                            <source src="GS2.mp4" type="video/mp4">
-                        </video>
-                        <img src="F5.jpeg" class="slide" alt="Elektronik test 1">
-                        <video class="slide timeline-media" autoplay loop muted playsinline>
-                            <source src="GS3.mp4" type="video/mp4">
-                        </video>
-                        <img src="F6.jpeg" class="slide" alt="Elektronik test 2">
-                    </div>
+               <!-- Slider i Fase 2 (Video, Billede, Video, Billede) -->
+<div class="slider-container" id="slider2">
+    <div class="slider">
+        <video class="slide active" autoplay loop muted playsinline>
+            <source src="GS2.mp4" type="video/mp4">
+        </video>
+        
+        <img src="F5.jpeg" class="slide" alt="Elektronik test 1">
+        
+        <video class="slide" autoplay loop muted playsinline>
+            <source src="GS3.mp4" type="video/mp4">
+        </video>
+        
+        <img src="F6.jpeg" class="slide" alt="Elektronik test 2">
+    </div>
 
-                    <button class="prev" onclick="moveSlide('slider2', -1)">&#10094;</button>
-                    <button class="next" onclick="moveSlide('slider2', 1)">&#10095;</button>
+    <button class="prev" onclick="moveSlide('slider2', -1)">&#10094;</button>
+    <button class="next" onclick="moveSlide('slider2', 1)">&#10095;</button>
 
-                    <div class="dots-container">
-                        <span class="dot active" onclick="currentSlide('slider2', 0)"></span>
-                        <span class="dot" onclick="currentSlide('slider2', 1)"></span>
-                        <span class="dot" onclick="currentSlide('slider2', 2)"></span>
-                        <span class="dot" onclick="currentSlide('slider2', 3)"></span>
-                    </div>
-                </div>
+    <div class="dots-container">
+        <span class="dot active" onclick="currentSlide('slider2', 0)"></span>
+        <span class="dot" onclick="currentSlide('slider2', 1)"></span>
+        <span class="dot" onclick="currentSlide('slider2', 2)"></span>
+        <span class="dot" onclick="currentSlide('slider2', 3)"></span>
+    </div>
+</div>
             </div>
         </div>
 
