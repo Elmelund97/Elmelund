@@ -162,18 +162,18 @@
             margin-bottom: 35px;
         }
 
-    /* ABOUT SECTION OPDATERET */
+   /* ABOUT SECTION OPDATERET */
         .about {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr; /* Tekst fylder lidt mere end billedet */
+            grid-template-columns: 1.1fr 0.9fr;
             gap: 50px;
-            align-items: stretch; /* Gør at billed-containeren matcher højden på teksten */
+            align-items: start; /* Sikrer at tekst og billede starter helt lige i toppen */
         }
 
         .about-text {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; /* Retter teksten til at starte fra toppen */
         }
 
         .about-text p {
@@ -183,8 +183,6 @@
 
         .about-image {
             width: 100%;
-            height: 100%;
-            min-height: 320px; /* Sikrer god højde på mobil/små skærme */
             border-radius: 20px;
             overflow: hidden;
             border: 1px solid rgba(168, 85, 247, 0.3);
@@ -193,10 +191,9 @@
 
         .about-image img {
             width: 100%;
-            height: 100%;
+            height: auto; /* Lader billedet holde sine naturlige proportioner */
             display: block;
-            object-fit: cover; /* Beskærer billedet flot, så det ikke bliver strukket */
-            object-position: center;
+            object-fit: cover;
         }
 
         /* SKILLS */
