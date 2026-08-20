@@ -64,7 +64,7 @@
             margin: auto;
         }
 
-        /* HERO MEDIE I TOPPEN (VIDEO ELLER BILLEDE) */
+        /* TOP BILLEDE */
         .main-media-container {
             width: 60%;
             margin: 40px auto 80px;
@@ -73,8 +73,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .main-media-container img,
-        .main-media-container video {
+        .main-media-container img {
             width: 100%;
             height: auto;
             display: block;
@@ -146,13 +145,15 @@
             max-height: 400px;
             object-fit: cover;
             display: block;
+            margin-bottom: 15px;
         }
 
-        /* SLIDER STYLING INDE I FASE 1 */
+        /* SLIDER STYLING */
         .slider-container {
             position: relative;
             width: 100%;
             margin-top: 20px;
+            margin-bottom: 20px;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -190,6 +191,7 @@
             border-radius: 50%;
             transition: 0.3s;
             user-select: none;
+            z-index: 10;
         }
 
         .prev:hover, .next:hover {
@@ -208,6 +210,7 @@
             transform: translateX(-50%);
             display: flex;
             gap: 6px;
+            z-index: 10;
         }
 
         .dot {
@@ -294,97 +297,143 @@
         </p>
     </header>
 
-    <!-- HOVED-VIDEO I LOOP ELLER HOVEDBILLEDE UNDER BESKRIVELSEN -->
+    <!-- 1 TOP BILLEDE UNDER BESKRIVELSEN -->
     <div class="main-media-container">
-        <!-- Hvis du vil have en video som kører i loop her, bruges koden herunder: -->
-        <video autoplay loop muted playsinline>
-            <source src="guldsmed-hero.mp4" type="video/mp4">
-            Din browser understøtter ikke video-tagget.
-        </video>
-        <!-- Hvis du hellere vil bruge et billede i toppen, fjern videoen og indsæt: -->
-        <!-- <img src="guldsmed-hoved.jpg" alt="Guldsmeden færdigt resultat"> -->
+        <img src="F1.jpg" alt="Guldsmeden hovedbillede">
     </div>
 
     <!-- PROCESSEN / TIDSLINJE -->
     <div class="section-title">Processen</div>
-    ## Fra prototype til færdigt værk
+    <h2>Fra prototype til færdigt værk</h2>
 
     <div class="timeline">
 
-        <!-- STEP 1 MED BILLEDE-SLIDER -->
+        <!-- FASE 1 -->
         <div class="timeline-item">
             <div class="timeline-dot"></div>
             <div class="timeline-date">FASE 1 · DIREKTE PROTOTYPE-ARBEJDE</div>
             <div class="timeline-content">
-                <h3>Hands-on Byggefase utan skitser</h3>
+                <h3>Hands-on Byggefase uden skitser</h3>
                 <p>
                     Projektet sprang papirskitserne over og gik direkte til det fysiske arbejde. 
-                    Der blev eksperimenteret direkte på materialerne for at teste guldsmedens vingefang, 
-                    vægtfordeling og den fysiske struktur fra starten.
+                    Der blev eksperimenteret direkte på materialerne for at teste guldsmedens vingefang og vægtfordeling.
                 </p>
 
-                <!-- BILLEDE SLIDER PLACERET HER I FASE 1 -->
-                <div class="slider-container">
+                <!-- Første billede i Fase 1 -->
+                <img src="fase1-start.jpg" alt="Start på prototype" class="timeline-media">
+
+                <!-- Slider i Fase 1 (1 Billede, 1 Video loop, 2 Billeder) -->
+                <div class="slider-container" id="slider1">
                     <div class="slider">
-                        <img src="billede-guldsmed-proto1.jpg" class="slide active" alt="Prototype billede 1">
-                        <img src="billede-guldsmed-proto2.jpg" class="slide" alt="Prototype billede 2">
-                        <img src="billede-guldsmed-proto3.jpg" class="slide" alt="Prototype billede 3">
+                        <img src="F2.jpeg" class="slide active" alt="Fase 1 Slide 1">
+                        <video class="slide timeline-media" autoplay loop muted playsinline>
+                            <source src="fase1-loop.mp4" type="video/mp4">
+                        </video>
+                        <img src="F3.jpeg" class="slide" alt="Fase 1 Slide 3">
+                        <img src="F4.png" class="slide" alt="Fase 1 Slide 4">
                     </div>
 
-                    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-                    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+                    <button class="prev" onclick="moveSlide('slider1', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider1', 1)">&#10095;</button>
 
                     <div class="dots-container">
-                        <span class="dot active" onclick="currentSlide(0)"></span>
-                        <span class="dot" onclick="currentSlide(1)"></span>
-                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot active" onclick="currentSlide('slider1', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider1', 1)"></span>
+                        <span class="dot" onclick="currentSlide('slider1', 2)"></span>
+                        <span class="dot" onclick="currentSlide('slider1', 3)"></span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- STEP 2 (MED LOOPING VIDEO) -->
+        <!-- FASE 2 -->
         <div class="timeline-item">
             <div class="timeline-dot"></div>
             <div class="timeline-date">FASE 2 · ELEKTRONIK & MEKANIK</div>
             <div class="timeline-content">
                 <h3>Motor- & Lys-test</h3>
                 <p>
-                    Montering af servomotorer og LED-strips langs guldsmedens vinger og krop. 
-                    Videoen herunder viser testen af vingernes mekaniske bevægelser og synkronisering.
+                    Montering af servomotorer og LED-strips. Slideren herunder viser de mekaniske bevægelser og lyssekvenserne i aktion.
                 </p>
-                <!-- VIDEO SOM LOOPING ELEMENT I TIDSLINJEN -->
+
+                <!-- Slider i Fase 2 (Video, Billede, Video, Billede) -->
+                <div class="slider-container" id="slider2">
+                    <div class="slider">
+                        <video class="slide active timeline-media" autoplay loop muted playsinline>
+                            <source src="GS2.mp4" type="video/mp4">
+                        </video>
+                        <img src="F5.jpeg" class="slide" alt="Elektronik test 1">
+                        <video class="slide timeline-media" autoplay loop muted playsinline>
+                            <source src="GS3.mp4" type="video/mp4">
+                        </video>
+                        <img src="F6.jpeg" class="slide" alt="Elektronik test 2">
+                    </div>
+
+                    <button class="prev" onclick="moveSlide('slider2', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider2', 1)">&#10095;</button>
+
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide('slider2', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider2', 1)"></span>
+                        <span class="dot" onclick="currentSlide('slider2', 2)"></span>
+                        <span class="dot" onclick="currentSlide('slider2', 3)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FASE 3 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 3 · 3D DESIGN AF GULDSMED</div>
+            <div class="timeline-content">
+                <h3>3D-Modellering & digitale tilpasninger</h3>
+                <p>
+                    Udviklingen af de digitale 3D-komponenter til udskæring og montering af skelettet.
+                </p>
+
+                <!-- 3 Billeder i Fase 3 -->
+                <img src="G.png" alt="3D Design 1" class="timeline-media">
+                <img src="F7.jpeg" alt="3D Design 2" class="timeline-media">
+                <img src="F8.jpeg" alt="3D Design 3" class="timeline-media">
+            </div>
+        </div>
+
+        <!-- FASE 4 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 4 · DET FÆRDIGE RESULTAT PÅ FESTIVAL</div>
+            <div class="timeline-content">
+                <h3>Opstilling i Fremtidens Skove</h3>
+                <p>
+                    Den endelige installation svævende i skoven på Roskilde Festival 2026.
+                </p>
+
+                <!-- Video i loop -->
                 <video class="timeline-media" autoplay loop muted playsinline>
-                    <source src="guldsmed-vinge-test.mp4" type="video/mp4">
+                    <source src="GS4.mp4" type="video/mp4">
                 </video>
-            </div>
-        </div>
 
-        <!-- STEP 3 -->
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-date">FASE 3 · SAMLING & SAMMENSÆTNING</div>
-            <div class="timeline-content">
-                <h3>Færdiggørelse af skelet & vinger</h3>
-                <p>
-                    Samling af alle delkomponenter, lodning af det samlede ledningsnet 
-                    samt kassettering af mikrocontrolleren til udendørs brug.
-                </p>
-                <img src="billede-guldsmed-samling.jpg" alt="Samling af guldsmeden" class="timeline-media">
-            </div>
-        </div>
+                <!-- Billede -->
+                <img src="festival-faerdig-billede.jpg" alt="Festival installation" class="timeline-media">
 
-        <!-- STEP 4 -->
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-date">FASE 4 · INSTALLATION I SKOVEN</div>
-            <div class="timeline-content">
-                <h3>Det færdige resultat på festivalen</h3>
-                <p>
-                    Opstillingen af Guldsmeden på Roskilde Festival 2026 i området Fremtidens Skove, 
-                    hvor den svævede blandt træerne med pulserende lys.
-                </p>
-                <img src="billede-guldsmed-faerdig.jpg" alt="Guldsmeden opstillet" class="timeline-media">
+                <!-- Billed-slider i Fase 4 -->
+                <div class="slider-container" id="slider4">
+                    <div class="slider">
+                        <img src="F11.jpeg" class="slide active" alt="Festival Stemning 1">
+                        <img src="F13.jpeg" class="slide" alt="Festival Stemning 2">
+                        <img src="F14.jpeg" class="slide" alt="Festival Stemning 3">
+                    </div>
+
+                    <button class="prev" onclick="moveSlide('slider4', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider4', 1)">&#10095;</button>
+
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide('slider4', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider4', 1)"></span>
+                        <span class="dot" onclick="currentSlide('slider4', 2)"></span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -400,31 +449,68 @@
         </div>
         <pre><code>// Indsæt din Arduino-kode til Guldsmeden herunder:
 
-#include &lt;Servo.h&gt;
-#include &lt;Adafruit_NeoPixel.h&gt;
+#include <FastLED.h>
+#include <Servo.h>
 
-#define LED_PIN 6
-#define NUM_LEDS 90
+#define BRIGHTNESS 100
+#define SERVO_PIN 12
 
-Adafruit_NeoPixel strip(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
-Servo vingeServo;
+#define WING_LEDS 31
+#define TAIL_LEDS 37
+#define HEAD_LEDS 31
+
+CRGB leds1[WING_LEDS], leds2[WING_LEDS], leds3[WING_LEDS], leds4[WING_LEDS];
+CRGB leds5[TAIL_LEDS], leds6[HEAD_LEDS];
+
+Servo servo;
+
+int pos = 0;
+int dir = 1;
+
+CRGBPalette16 colors(
+  CRGB::Pink, CRGB::DeepPink, CRGB::Purple, CRGB::Blue,
+  CRGB::Blue, CRGB::DeepSkyBlue, CRGB::Orange, CRGB::DarkRed,
+  CRGB::Pink, CRGB::DeepPink, CRGB::Purple, CRGB::Blue,
+  CRGB::Blue, CRGB::DarkRed, CRGB::HotPink, CRGB::LightPink
+);
 
 void setup() {
-  strip.begin();
-  strip.show();
-  vingeServo.attach(9);
+  FastLED.addLeds<NEOPIXEL, 3>(leds1, WING_LEDS);
+  FastLED.addLeds<NEOPIXEL, 5>(leds2, WING_LEDS);
+  FastLED.addLeds<NEOPIXEL, 7>(leds3, WING_LEDS);
+  FastLED.addLeds<NEOPIXEL, 9>(leds4, WING_LEDS);
+  FastLED.addLeds<NEOPIXEL, 11>(leds5, TAIL_LEDS);
+  FastLED.addLeds<NEOPIXEL, 13>(leds6, HEAD_LEDS);
+
+  FastLED.setBrightness(BRIGHTNESS);
+  servo.attach(SERVO_PIN);
 }
 
 void loop() {
-  // Servo-bevægelse for vinger
-  for (int pos = 0; pos <= 45; pos += 1) {
-    vingeServo.write(pos);
-    delay(15);
+  fillStrip(leds1, WING_LEDS);
+  fillStrip(leds2, WING_LEDS);
+  fillStrip(leds3, WING_LEDS);
+  fillStrip(leds4, WING_LEDS);
+  fillStrip(leds5, TAIL_LEDS);
+  fillStrip(leds6, HEAD_LEDS);
+
+  FastLED.show();
+
+  servo.write(pos);
+  pos += dir;
+
+  if (pos >= 180 || pos <= 0) {
+    dir = -dir;
   }
-  for (int pos = 45; pos >= 0; pos -= 1) {
-    vingeServo.write(pos);
-    delay(15);
+
+  delay(15);
+}
+
+void fillStrip(CRGB strip[], int amount) {
+  for (int i = 0; i < amount; i++) {
+    strip[i] = ColorFromPalette(colors, millis() / 20 + i * 6);
   }
+}
 }</code></pre>
     </div>
 
@@ -434,30 +520,45 @@ void loop() {
     © 2026 Casper Elmelund Poulsen · Portfolio
 </footer>
 
-<!-- JAVASCRIPT TIL SLIDEREN INNE I FASE 1 -->
+<!-- JAVASCRIPT TIL FLERE SLIDERE PÅ SAMME SIDE -->
 <script>
-    let slideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
+    const slidersState = {};
 
-    function showSlide(index) {
-        if (index >= slides.length) slideIndex = 0;
-        if (index < 0) slideIndex = slides.length - 1;
+    function initSliders() {
+        document.querySelectorAll('.slider-container').forEach(container => {
+            const id = container.id;
+            slidersState[id] = 0;
+        });
+    }
+
+    function showSlide(sliderId, index) {
+        const container = document.getElementById(sliderId);
+        const slides = container.querySelectorAll('.slide');
+        const dots = container.querySelectorAll('.dot');
+
+        if (index >= slides.length) slidersState[sliderId] = 0;
+        else if (index < 0) slidersState[sliderId] = slides.length - 1;
+        else slidersState[sliderId] = index;
+
+        const activeIndex = slidersState[sliderId];
 
         slides.forEach(slide => slide.classList.remove('active'));
         dots.forEach(dot => dot.classList.remove('active'));
 
-        slides[slideIndex].classList.add('active');
-        dots[slideIndex].classList.add('active');
+        slides[activeIndex].classList.add('active');
+        dots[activeIndex].classList.add('active');
     }
 
-    function moveSlide(step) {
-        showSlide(slideIndex += step);
+    function moveSlide(sliderId, step) {
+        showSlide(sliderId, slidersState[sliderId] + step);
     }
 
-    function currentSlide(index) {
-        showSlide(slideIndex = index);
+    function currentSlide(sliderId, index) {
+        showSlide(sliderId, index);
     }
+
+    // Start slider-systemet ved indlæsning
+    initSliders();
 </script>
 
 </body>
