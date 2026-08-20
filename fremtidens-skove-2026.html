@@ -19,7 +19,6 @@
             line-height: 1.6;
         }
 
-        /* NAVIGATION & HEADER */
         .container {
             max-width: 900px;
             margin: auto;
@@ -138,21 +137,6 @@
             margin-bottom: 20px;
         }
 
-        /* MEDIA & VIDEO STYLING (RETTET: VISER HELE FRAMET) */
-        .main-media-container video,
-        .timeline-media,
-        video.slide {
-            width: 100%;
-            height: auto;
-            max-height: 550px;
-            object-fit: contain; /* Sørger for at HELE videoens/billedets frame vises */
-            background: #000;
-            display: block;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
         /* SLIDER STYLING */
         .slider-container {
             position: relative;
@@ -163,10 +147,11 @@
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
             background: rgba(0, 0, 0, 0.4);
+            min-height: 250px;
         }
 
         .slider {
-            display: flex;
+            display: block;
             width: 100%;
         }
 
@@ -183,7 +168,7 @@
             display: block;
         }
 
-        /* PILE TIL NAVIGATION */
+        /* NAVIGATION PILE */
         .prev, .next {
             position: absolute;
             top: 50%;
@@ -232,6 +217,21 @@
             width: 30px;
         }
 
+        /* VIDEO SEKTION I BUNDEN */
+        .video-section {
+            margin-top: 80px;
+            margin-bottom: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 50px;
+        }
+
+        .video-title {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #c084fc;
+            top: 10px;
+        }
+
         /* ARDUINO KODE SEKTION */
         .code-section {
             background: rgba(255, 255, 255, 0.03);
@@ -269,7 +269,6 @@
             line-height: 1.5;
         }
 
-        /* FOOTER */
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -289,10 +288,8 @@
 
 <div class="container">
     
-    <!-- TILBAGE KNAP -->
     <a href="index.html" class="back-link">← Tilbage til portfolio</a>
 
-    <!-- OVERSKRIFT & KORT BESKRIVELSE -->
     <header class="project-header">
         <div class="project-year">Roskilde Festival · 2026</div>
         <h1>Guldsmeden · Fremtidens Skove</h1>
@@ -302,58 +299,46 @@
         </p>
     </header>
 
-    <!-- 1 TOP BILLEDE UNDER BESKRIVELSEN -->
+    <!-- BEHOLDT TOP BILLEDE -->
     <div class="main-media-container">
-        <img src="F1.jpg" alt="Guldsmeden hovedbillede">
+        <img src="guldsmed-top.jpg" alt="Guldsmeden hovedbillede">
     </div>
 
-    <!-- PROCESSEN / TIDSLINJE -->
+    <!-- PROCESSEN / TIDSLINJE MED KUN BILLEDER -->
     <div class="section-title">Processen</div>
     <h2>Fra prototype til færdigt værk</h2>
 
     <div class="timeline">
 
-      <!-- FASE 1 -->
-<div class="timeline-item">
-    <div class="timeline-dot"></div>
-    <div class="timeline-date">FASE 1 · DIREKTE PROTOTYPE-ARBEJDE</div>
-    <div class="timeline-content">
-        <h3>Hands-on Byggefase uden skitser</h3>
-        <p>
-            Projektet sprang papirskitserne over og gik direkte til det fysiske arbejde. 
-            Der blev eksperimenteret direkte på materialerne for at teste guldsmedens vingefang og vægtfordeling.
-        </p>
+        <!-- FASE 1 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 1 · DIREKTE PROTOTYPE-ARBEJDE</div>
+            <div class="timeline-content">
+                <h3>Hands-on Byggefase uden skitser</h3>
+                <p>
+                    Projektet sprang papirskitserne over og gik direkte til det fysiske arbejde. 
+                    Der blev eksperimenteret direkte på materialerne for at teste guldsmedens vingefang og vægtfordeling.
+                </p>
 
-        <!-- Slider i Fase 1 -->
-        <div class="slider-container" id="slider1">
-            <div class="slider">
-                <!-- Billede 1 -->
-                <img src="F1.jpg" class="slide active" alt="Fase 1 Slide 1">
-                
-                <!-- Video (Bemærk: kun 'slide' som klasse, ikke timeline-media) -->
-                <video class="slide" autoplay loop muted playsinline>
-                    <source src="GS1.mp4" type="video/mp4">
-                </video>
+                <div class="slider-container" id="slider-fase1">
+                    <div class="slider">
+                        <img src="F1.jpg" class="slide active" alt="Fase 1 Billede 1">
+                        <img src="F2.jpeg" class="slide" alt="Fase 1 Billede 2">
+                        <img src="F3.jpeg" class="slide" alt="Fase 1 Billede 3">
+                    </div>
 
-                <!-- Billede 2 -->
-                <img src="F2.jpeg" class="slide" alt="Fase 1 Slide 3">
+                    <button class="prev" onclick="moveSlide('slider-fase1', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider-fase1', 1)">&#10095;</button>
 
-                <!-- Billede 3 -->
-                <img src="F3.jpeg" class="slide" alt="Fase 1 Slide 4">
-            </div>
-
-            <button class="prev" onclick="moveSlide('slider1', -1)">&#10094;</button>
-            <button class="next" onclick="moveSlide('slider1', 1)">&#10095;</button>
-
-            <div class="dots-container">
-                <span class="dot active" onclick="currentSlide('slider1', 0)"></span>
-                <span class="dot" onclick="currentSlide('slider1', 1)"></span>
-                <span class="dot" onclick="currentSlide('slider1', 2)"></span>
-                <span class="dot" onclick="currentSlide('slider1', 3)"></span>
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide('slider-fase1', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase1', 1)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase1', 2)"></span>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
         <!-- FASE 2 -->
         <div class="timeline-item">
@@ -362,36 +347,23 @@
             <div class="timeline-content">
                 <h3>Motor- & Lys-test</h3>
                 <p>
-                    Montering af servomotorer og LED-strips. Slideren herunder viser de mekaniske bevægelser og lyssekvenserne i aktion.
+                    Montering af servomotorer og LED-strips for at opbygge de mekaniske bevægelser.
                 </p>
 
-                <!-- Slider i Fase 2 (Video, Billede, Video, Billede) -->
-               <!-- Slider i Fase 2 (Video, Billede, Video, Billede) -->
-<div class="slider-container" id="slider2">
-    <div class="slider">
-        <video class="slide active" autoplay loop muted playsinline>
-            <source src="GS2.mp4" type="video/mp4">
-        </video>
-        
-        <img src="F5.jpeg" class="slide" alt="Elektronik test 1">
-        
-        <video class="slide" autoplay loop muted playsinline>
-            <source src="GS3.mp4" type="video/mp4">
-        </video>
-        
-        <img src="F6.jpeg" class="slide" alt="Elektronik test 2">
-    </div>
+                <div class="slider-container" id="slider-fase2">
+                    <div class="slider">
+                        <img src="F5.jpeg" class="slide active" alt="Elektronik test 1">
+                        <img src="F6.jpeg" class="slide" alt="Elektronik test 2">
+                    </div>
 
-    <button class="prev" onclick="moveSlide('slider2', -1)">&#10094;</button>
-    <button class="next" onclick="moveSlide('slider2', 1)">&#10095;</button>
+                    <button class="prev" onclick="moveSlide('slider-fase2', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider-fase2', 1)">&#10095;</button>
 
-    <div class="dots-container">
-        <span class="dot active" onclick="currentSlide('slider2', 0)"></span>
-        <span class="dot" onclick="currentSlide('slider2', 1)"></span>
-        <span class="dot" onclick="currentSlide('slider2', 2)"></span>
-        <span class="dot" onclick="currentSlide('slider2', 3)"></span>
-    </div>
-</div>
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide('slider-fase2', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase2', 1)"></span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -405,10 +377,22 @@
                     Udviklingen af de digitale 3D-komponenter til udskæring og montering af skelettet.
                 </p>
 
-                <!-- 3 Billeder i Fase 3 -->
-                <img src="G.png" alt="3D Design 1" class="timeline-media">
-                <img src="F7.jpeg" alt="3D Design 2" class="timeline-media">
-                <img src="F8.jpeg" alt="3D Design 3" class="timeline-media">
+                <div class="slider-container" id="slider-fase3">
+                    <div class="slider">
+                        <img src="G.png" class="slide active" alt="3D Design 1">
+                        <img src="F7.jpeg" class="slide" alt="3D Design 2">
+                        <img src="F8.jpeg" class="slide" alt="3D Design 3">
+                    </div>
+
+                    <button class="prev" onclick="moveSlide('slider-fase3', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider-fase3', 1)">&#10095;</button>
+
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide('slider-fase3', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase3', 1)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase3', 2)"></span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -422,31 +406,65 @@
                     Den endelige installation svævende i skoven på Roskilde Festival 2026.
                 </p>
 
-                <!-- Video i loop -->
-                <video class="timeline-media" autoplay loop muted playsinline>
-                    <source src="Gs4.mp4" type="video/mp4">
-                </video>
-
-                <!-- Billed-slider i Fase 4 -->
-                <div class="slider-container" id="slider4">
+                <div class="slider-container" id="slider-fase4">
                     <div class="slider">
                         <img src="F11.jpeg" class="slide active" alt="Festival Stemning 1">
                         <img src="F13.jpeg" class="slide" alt="Festival Stemning 2">
                         <img src="F14.jpeg" class="slide" alt="Festival Stemning 3">
                     </div>
 
-                    <button class="prev" onclick="moveSlide('slider4', -1)">&#10094;</button>
-                    <button class="next" onclick="moveSlide('slider4', 1)">&#10095;</button>
+                    <button class="prev" onclick="moveSlide('slider-fase4', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider-fase4', 1)">&#10095;</button>
 
                     <div class="dots-container">
-                        <span class="dot active" onclick="currentSlide('slider4', 0)"></span>
-                        <span class="dot" onclick="currentSlide('slider4', 1)"></span>
-                        <span class="dot" onclick="currentSlide('slider4', 2)"></span>
+                        <span class="dot active" onclick="currentSlide('slider-fase4', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase4', 1)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase4', 2)"></span>
                     </div>
                 </div>
             </div>
         </div>
 
+    </div>
+
+    <!-- SAMLET VIDEO SLIDER I BUNDEN (I RÆKKEFØLGE FRA FASE 1 TIL 4) -->
+    <div class="video-section">
+        <div class="section-title">Videodokumentation</div>
+        <h2>Samlet videoproces (Fase 1 - 4)</h2>
+
+        <div class="slider-container" id="video-slider">
+            <div class="slider">
+                <!-- GS1: Fase 1 -->
+                <video class="slide active" autoplay loop muted playsinline>
+                    <source src="GS1.mp4" type="video/mp4">
+                </video>
+
+                <!-- GS2: Fase 2 (del 1) -->
+                <video class="slide" autoplay loop muted playsinline>
+                    <source src="GS2.mp4" type="video/mp4">
+                </video>
+
+                <!-- GS3: Fase 2 (del 2) -->
+                <video class="slide" autoplay loop muted playsinline>
+                    <source src="GS3.mp4" type="video/mp4">
+                </video>
+
+                <!-- Festival Loop: Fase 4 -->
+                <video class="slide" autoplay loop muted playsinline>
+                    <source src="GS4.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <button class="prev" onclick="moveSlide('video-slider', -1)">&#10094;</button>
+            <button class="next" onclick="moveSlide('video-slider', 1)">&#10095;</button>
+
+            <div class="dots-container">
+                <span class="dot active" onclick="currentSlide('video-slider', 0)"></span>
+                <span class="dot" onclick="currentSlide('video-slider', 1)"></span>
+                <span class="dot" onclick="currentSlide('video-slider', 2)"></span>
+                <span class="dot" onclick="currentSlide('video-slider', 3)"></span>
+            </div>
+        </div>
     </div>
 
     <!-- ARDUINO KODE SEKTION -->
@@ -457,7 +475,7 @@
         <div class="code-header">
             <span>guldsmed_styring.ino</span>
         </div>
-        <pre><code>// Indsæt din Arduino-kode til Guldsmeden herunder:
+        <pre><code>
 
 #include <FastLED.h>
 #include <Servo.h>
@@ -521,7 +539,6 @@ void fillStrip(CRGB strip[], int amount) {
     strip[i] = ColorFromPalette(colors, millis() / 20 + i * 6);
   }
 }
-            
 }</code></pre>
     </div>
 
@@ -531,7 +548,6 @@ void fillStrip(CRGB strip[], int amount) {
     © 2026 Casper Elmelund Poulsen · Portfolio
 </footer>
 
-<!-- JAVASCRIPT TIL FLERE SLIDERE SAMT VIDEO-AFSPILNING -->
 <script>
     const slidersState = {};
 
@@ -561,7 +577,7 @@ void fillStrip(CRGB strip[], int amount) {
                 slide.classList.add('active');
                 if (slide.tagName === 'VIDEO') {
                     slide.currentTime = 0;
-                    slide.play().catch(e => console.log('Autoplay forhindret:', e));
+                    slide.play().catch(e => console.log('Autoplay info:', e));
                 }
             } else {
                 slide.classList.remove('active');
@@ -588,7 +604,6 @@ void fillStrip(CRGB strip[], int amount) {
         showSlide(sliderId, index);
     }
 
-    // Start når siden er hentet
     document.addEventListener('DOMContentLoaded', initSliders);
 </script>
 
