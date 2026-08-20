@@ -304,7 +304,7 @@
 
     <!-- 1 TOP BILLEDE UNDER BESKRIVELSEN -->
     <div class="main-media-container">
-        <img src="guldsmed-top.jpg" alt="Guldsmeden hovedbillede">
+        <img src="F1.jpg" alt="Guldsmeden hovedbillede">
     </div>
 
     <!-- PROCESSEN / TIDSLINJE -->
@@ -324,18 +324,16 @@
                     Der blev eksperimenteret direkte på materialerne for at teste guldsmedens vingefang og vægtfordeling.
                 </p>
 
-                <!-- Første billede i Fase 1 -->
-                <img src="fase1-start.jpg" alt="Start på prototype" class="timeline-media">
-
+               
                 <!-- Slider i Fase 1 (1 Billede, 1 Video loop, 2 Billeder) -->
                 <div class="slider-container" id="slider1">
                     <div class="slider">
-                        <img src="fase1-slide1.jpg" class="slide active" alt="Fase 1 Slide 1">
+                        <img src="F2.jpeg" class="slide active" alt="Fase 1 Slide 1">
                         <video class="slide timeline-media" autoplay loop muted playsinline>
-                            <source src="fase1-loop.mp4" type="video/mp4">
+                            <source src="GS1.mp4" type="video/mp4">
                         </video>
-                        <img src="fase1-slide2.jpg" class="slide" alt="Fase 1 Slide 3">
-                        <img src="fase1-slide3.jpg" class="slide" alt="Fase 1 Slide 4">
+                        <img src="F3.jpeg" class="slide" alt="Fase 1 Slide 3">
+                        <img src="F4.png" class="slide" alt="Fase 1 Slide 4">
                     </div>
 
                     <button class="prev" onclick="moveSlide('slider1', -1)">&#10094;</button>
@@ -365,13 +363,13 @@
                 <div class="slider-container" id="slider2">
                     <div class="slider">
                         <video class="slide active timeline-media" autoplay loop muted playsinline>
-                            <source src="fase2-loop1.mp4" type="video/mp4">
+                            <source src="GS2.mp4" type="video/mp4">
                         </video>
-                        <img src="fase2-billede1.jpg" class="slide" alt="Elektronik test 1">
+                        <img src="F5.jpeg" class="slide" alt="Elektronik test 1">
                         <video class="slide timeline-media" autoplay loop muted playsinline>
-                            <source src="fase2-loop2.mp4" type="video/mp4">
+                            <source src="GS3.mp4" type="video/mp4">
                         </video>
-                        <img src="fase2-billede2.jpg" class="slide" alt="Elektronik test 2">
+                        <img src="F6.jpeg" class="slide" alt="Elektronik test 2">
                     </div>
 
                     <button class="prev" onclick="moveSlide('slider2', -1)">&#10094;</button>
@@ -398,9 +396,9 @@
                 </p>
 
                 <!-- 3 Billeder i Fase 3 -->
-                <img src="3d-design-1.jpg" alt="3D Design 1" class="timeline-media">
-                <img src="3d-design-2.jpg" alt="3D Design 2" class="timeline-media">
-                <img src="3d-design-3.jpg" alt="3D Design 3" class="timeline-media">
+                <img src="G.png" alt="3D Design 1" class="timeline-media">
+                <img src="F7.jpeg" alt="3D Design 2" class="timeline-media">
+                <img src="F8.jpeg" alt="3D Design 3" class="timeline-media">
             </div>
         </div>
 
@@ -416,11 +414,8 @@
 
                 <!-- Video i loop -->
                 <video class="timeline-media" autoplay loop muted playsinline>
-                    <source src="festival-faerdig-loop.mp4" type="video/mp4">
+                    <source src="Gs4.mp4" type="video/mp4">
                 </video>
-
-                <!-- Billede -->
-                <img src="festival-faerdig-billede.jpg" alt="Festival installation" class="timeline-media">
 
                 <!-- Billed-slider i Fase 4 -->
                 <div class="slider-container" id="slider4">
@@ -454,31 +449,69 @@
         </div>
         <pre><code>// Indsæt din Arduino-kode til Guldsmeden herunder:
 
-#include &lt;Servo.h&gt;
-#include &lt;Adafruit_NeoPixel.h&gt;
+#include <FastLED.h>
+#include <Servo.h>
 
-#define LED_PIN 6
-#define NUM_LEDS 90
+#define BRIGHTNESS 100
+#define SERVO_PIN 12
 
-Adafruit_NeoPixel strip(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
-Servo vingeServo;
+#define WING_LEDS 31
+#define TAIL_LEDS 37
+#define HEAD_LEDS 31
+
+CRGB leds1[WING_LEDS], leds2[WING_LEDS], leds3[WING_LEDS], leds4[WING_LEDS];
+CRGB leds5[TAIL_LEDS], leds6[HEAD_LEDS];
+
+Servo servo;
+
+int pos = 0;
+int dir = 1;
+
+CRGBPalette16 colors(
+  CRGB::Pink, CRGB::DeepPink, CRGB::Purple, CRGB::Blue,
+  CRGB::Blue, CRGB::DeepSkyBlue, CRGB::Orange, CRGB::DarkRed,
+  CRGB::Pink, CRGB::DeepPink, CRGB::Purple, CRGB::Blue,
+  CRGB::Blue, CRGB::DarkRed, CRGB::HotPink, CRGB::LightPink
+);
 
 void setup() {
-  strip.begin();
-  strip.show();
-  vingeServo.attach(9);
+  FastLED.addLeds<NEOPIXEL, 3>(leds1, WING_LEDS);
+  FastLED.addLeds<NEOPIXEL, 5>(leds2, WING_LEDS);
+  FastLED.addLeds<NEOPIXEL, 7>(leds3, WING_LEDS);
+  FastLED.addLeds<NEOPIXEL, 9>(leds4, WING_LEDS);
+  FastLED.addLeds<NEOPIXEL, 11>(leds5, TAIL_LEDS);
+  FastLED.addLeds<NEOPIXEL, 13>(leds6, HEAD_LEDS);
+
+  FastLED.setBrightness(BRIGHTNESS);
+  servo.attach(SERVO_PIN);
 }
 
 void loop() {
-  // Servo-bevægelse for vinger
-  for (int pos = 0; pos <= 45; pos += 1) {
-    vingeServo.write(pos);
-    delay(15);
+  fillStrip(leds1, WING_LEDS);
+  fillStrip(leds2, WING_LEDS);
+  fillStrip(leds3, WING_LEDS);
+  fillStrip(leds4, WING_LEDS);
+  fillStrip(leds5, TAIL_LEDS);
+  fillStrip(leds6, HEAD_LEDS);
+
+  FastLED.show();
+
+  servo.write(pos);
+  pos += dir;
+
+  if (pos >= 180 || pos <= 0) {
+    dir = -dir;
   }
-  for (int pos = 45; pos >= 0; pos -= 1) {
-    vingeServo.write(pos);
-    delay(15);
+
+  delay(15);
+}
+
+void fillStrip(CRGB strip[], int amount) {
+  for (int i = 0; i < amount; i++) {
+    strip[i] = ColorFromPalette(colors, millis() / 20 + i * 6);
   }
+}
+            
 }</code></pre>
     </div>
 
