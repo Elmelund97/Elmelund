@@ -392,10 +392,26 @@
                     Udviklingen af de digitale 3D-komponenter til udskæring og montering af skelettet.
                 </p>
 
-                <!-- 3 Billeder i Fase 3 -->
-                <img src="G.png" alt="3D Design 1" class="timeline-media">
-                <img src="F7.jpeg" alt="3D Design 2" class="timeline-media">
-                <img src="F8.jpeg" alt="3D Design 3" class="timeline-media">
+
+                <div class="slider-container" id="slider4">
+                    <div class="slider">
+                        <img src="G.png" class="slide active" alt="Festival Stemning 1">
+                        <img src="F7.jpeg" class="slide" alt="Festival Stemning 2">
+                        <img src="F8.jpeg" class="slide" alt="Festival Stemning 3">
+                    </div>
+
+                    <button class="prev" onclick="moveSlide('slider4', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider4', 1)">&#10095;</button>
+
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide('slider4', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider4', 1)"></span>
+                        <span class="dot" onclick="currentSlide('slider4', 2)"></span>
+                    </div>
+                </div>
+
+                
+             
             </div>
         </div>
 
