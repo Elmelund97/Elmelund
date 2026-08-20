@@ -138,14 +138,19 @@
             margin-bottom: 20px;
         }
 
-        .timeline-media {
+        /* MEDIA & VIDEO STYLING (RETTET: VISER HELE FRAMET) */
+        .main-media-container video,
+        .timeline-media,
+        video.slide {
             width: 100%;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.08);
-            max-height: 400px;
-            object-fit: cover;
+            height: auto;
+            max-height: 550px;
+            object-fit: contain; /* Sørger for at HELE videoens/billedets frame vises */
+            background: #000;
             display: block;
+            border-radius: 12px;
             margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         /* SLIDER STYLING */
@@ -157,7 +162,7 @@
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(0, 0, 0, 0.4);
         }
 
         .slider {
@@ -169,8 +174,9 @@
             width: 100%;
             display: none;
             height: auto;
-            max-height: 400px;
-            object-fit: cover;
+            max-height: 550px;
+            object-fit: contain;
+            margin-bottom: 0;
         }
 
         .slide.active {
@@ -182,16 +188,16 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(11, 11, 15, 0.7);
+            background: rgba(11, 11, 15, 0.8);
             color: #c084fc;
-            border: 1px solid rgba(192, 132, 252, 0.3);
-            font-size: 1rem;
-            padding: 8px 12px;
+            border: 1px solid rgba(192, 132, 252, 0.4);
+            font-size: 1.2rem;
+            padding: 10px 15px;
             cursor: pointer;
             border-radius: 50%;
             transition: 0.3s;
             user-select: none;
-            z-index: 10;
+            z-index: 100;
         }
 
         .prev:hover, .next:hover {
@@ -199,10 +205,9 @@
             color: white;
         }
 
-        .prev { left: 10px; }
-        .next { right: 10px; }
+        .prev { left: 12px; }
+        .next { right: 12px; }
 
-        /* MIDTERSTILLEDE LINJER */
         .dots-container {
             position: absolute;
             bottom: 12px;
@@ -210,7 +215,7 @@
             transform: translateX(-50%);
             display: flex;
             gap: 6px;
-            z-index: 10;
+            z-index: 100;
         }
 
         .dot {
@@ -299,7 +304,7 @@
 
     <!-- 1 TOP BILLEDE UNDER BESKRIVELSEN -->
     <div class="main-media-container">
-        <img src="F1.jpg" alt="Guldsmeden hovedbillede">
+        <img src="guldsmed-top.jpg" alt="Guldsmeden hovedbillede">
     </div>
 
     <!-- PROCESSEN / TIDSLINJE -->
@@ -325,12 +330,12 @@
                 <!-- Slider i Fase 1 (1 Billede, 1 Video loop, 2 Billeder) -->
                 <div class="slider-container" id="slider1">
                     <div class="slider">
-                        <img src="F2.jpeg" class="slide active" alt="Fase 1 Slide 1">
+                        <img src="fase1-slide1.jpg" class="slide active" alt="Fase 1 Slide 1">
                         <video class="slide timeline-media" autoplay loop muted playsinline>
-                            <source src="GS1.mp4" type="video/mp4">
+                            <source src="fase1-loop.mp4" type="video/mp4">
                         </video>
-                        <img src="F3.jpeg" class="slide" alt="Fase 1 Slide 3">
-                        <img src="F4.png" class="slide" alt="Fase 1 Slide 4">
+                        <img src="fase1-slide2.jpg" class="slide" alt="Fase 1 Slide 3">
+                        <img src="fase1-slide3.jpg" class="slide" alt="Fase 1 Slide 4">
                     </div>
 
                     <button class="prev" onclick="moveSlide('slider1', -1)">&#10094;</button>
@@ -360,13 +365,13 @@
                 <div class="slider-container" id="slider2">
                     <div class="slider">
                         <video class="slide active timeline-media" autoplay loop muted playsinline>
-                            <source src="GS2.mp4" type="video/mp4">
+                            <source src="fase2-loop1.mp4" type="video/mp4">
                         </video>
-                        <img src="F5.jpeg" class="slide" alt="Elektronik test 1">
+                        <img src="fase2-billede1.jpg" class="slide" alt="Elektronik test 1">
                         <video class="slide timeline-media" autoplay loop muted playsinline>
-                            <source src="GS3.mp4" type="video/mp4">
+                            <source src="fase2-loop2.mp4" type="video/mp4">
                         </video>
-                        <img src="F6.jpeg" class="slide" alt="Elektronik test 2">
+                        <img src="fase2-billede2.jpg" class="slide" alt="Elektronik test 2">
                     </div>
 
                     <button class="prev" onclick="moveSlide('slider2', -1)">&#10094;</button>
@@ -392,26 +397,10 @@
                     Udviklingen af de digitale 3D-komponenter til udskæring og montering af skelettet.
                 </p>
 
-
-                <div class="slider-container" id="slider4">
-                    <div class="slider">
-                        <img src="G.png" class="slide active" alt="Festival Stemning 1">
-                        <img src="F7.jpeg" class="slide" alt="Festival Stemning 2">
-                        <img src="F8.jpeg" class="slide" alt="Festival Stemning 3">
-                    </div>
-
-                    <button class="prev" onclick="moveSlide('slider4', -1)">&#10094;</button>
-                    <button class="next" onclick="moveSlide('slider4', 1)">&#10095;</button>
-
-                    <div class="dots-container">
-                        <span class="dot active" onclick="currentSlide('slider4', 0)"></span>
-                        <span class="dot" onclick="currentSlide('slider4', 1)"></span>
-                        <span class="dot" onclick="currentSlide('slider4', 2)"></span>
-                    </div>
-                </div>
-
-                
-             
+                <!-- 3 Billeder i Fase 3 -->
+                <img src="3d-design-1.jpg" alt="3D Design 1" class="timeline-media">
+                <img src="3d-design-2.jpg" alt="3D Design 2" class="timeline-media">
+                <img src="3d-design-3.jpg" alt="3D Design 3" class="timeline-media">
             </div>
         </div>
 
@@ -427,7 +416,7 @@
 
                 <!-- Video i loop -->
                 <video class="timeline-media" autoplay loop muted playsinline>
-                    <source src="GS4.mp4" type="video/mp4">
+                    <source src="festival-faerdig-loop.mp4" type="video/mp4">
                 </video>
 
                 <!-- Billede -->
@@ -465,68 +454,31 @@
         </div>
         <pre><code>// Indsæt din Arduino-kode til Guldsmeden herunder:
 
-#include <FastLED.h>
-#include <Servo.h>
+#include &lt;Servo.h&gt;
+#include &lt;Adafruit_NeoPixel.h&gt;
 
-#define BRIGHTNESS 100
-#define SERVO_PIN 12
+#define LED_PIN 6
+#define NUM_LEDS 90
 
-#define WING_LEDS 31
-#define TAIL_LEDS 37
-#define HEAD_LEDS 31
-
-CRGB leds1[WING_LEDS], leds2[WING_LEDS], leds3[WING_LEDS], leds4[WING_LEDS];
-CRGB leds5[TAIL_LEDS], leds6[HEAD_LEDS];
-
-Servo servo;
-
-int pos = 0;
-int dir = 1;
-
-CRGBPalette16 colors(
-  CRGB::Pink, CRGB::DeepPink, CRGB::Purple, CRGB::Blue,
-  CRGB::Blue, CRGB::DeepSkyBlue, CRGB::Orange, CRGB::DarkRed,
-  CRGB::Pink, CRGB::DeepPink, CRGB::Purple, CRGB::Blue,
-  CRGB::Blue, CRGB::DarkRed, CRGB::HotPink, CRGB::LightPink
-);
+Adafruit_NeoPixel strip(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
+Servo vingeServo;
 
 void setup() {
-  FastLED.addLeds<NEOPIXEL, 3>(leds1, WING_LEDS);
-  FastLED.addLeds<NEOPIXEL, 5>(leds2, WING_LEDS);
-  FastLED.addLeds<NEOPIXEL, 7>(leds3, WING_LEDS);
-  FastLED.addLeds<NEOPIXEL, 9>(leds4, WING_LEDS);
-  FastLED.addLeds<NEOPIXEL, 11>(leds5, TAIL_LEDS);
-  FastLED.addLeds<NEOPIXEL, 13>(leds6, HEAD_LEDS);
-
-  FastLED.setBrightness(BRIGHTNESS);
-  servo.attach(SERVO_PIN);
+  strip.begin();
+  strip.show();
+  vingeServo.attach(9);
 }
 
 void loop() {
-  fillStrip(leds1, WING_LEDS);
-  fillStrip(leds2, WING_LEDS);
-  fillStrip(leds3, WING_LEDS);
-  fillStrip(leds4, WING_LEDS);
-  fillStrip(leds5, TAIL_LEDS);
-  fillStrip(leds6, HEAD_LEDS);
-
-  FastLED.show();
-
-  servo.write(pos);
-  pos += dir;
-
-  if (pos >= 180 || pos <= 0) {
-    dir = -dir;
+  // Servo-bevægelse for vinger
+  for (int pos = 0; pos <= 45; pos += 1) {
+    vingeServo.write(pos);
+    delay(15);
   }
-
-  delay(15);
-}
-
-void fillStrip(CRGB strip[], int amount) {
-  for (int i = 0; i < amount; i++) {
-    strip[i] = ColorFromPalette(colors, millis() / 20 + i * 6);
+  for (int pos = 45; pos >= 0; pos -= 1) {
+    vingeServo.write(pos);
+    delay(15);
   }
-}
 }</code></pre>
     </div>
 
@@ -536,7 +488,7 @@ void fillStrip(CRGB strip[], int amount) {
     © 2026 Casper Elmelund Poulsen · Portfolio
 </footer>
 
-<!-- JAVASCRIPT TIL FLERE SLIDERE PÅ SAMME SIDE -->
+<!-- JAVASCRIPT TIL FLERE SLIDERE SAMT VIDEO-AFSPILNING -->
 <script>
     const slidersState = {};
 
@@ -544,11 +496,14 @@ void fillStrip(CRGB strip[], int amount) {
         document.querySelectorAll('.slider-container').forEach(container => {
             const id = container.id;
             slidersState[id] = 0;
+            showSlide(id, 0);
         });
     }
 
     function showSlide(sliderId, index) {
         const container = document.getElementById(sliderId);
+        if (!container) return;
+
         const slides = container.querySelectorAll('.slide');
         const dots = container.querySelectorAll('.dot');
 
@@ -558,11 +513,28 @@ void fillStrip(CRGB strip[], int amount) {
 
         const activeIndex = slidersState[sliderId];
 
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
+        slides.forEach((slide, i) => {
+            if (i === activeIndex) {
+                slide.classList.add('active');
+                if (slide.tagName === 'VIDEO') {
+                    slide.currentTime = 0;
+                    slide.play().catch(e => console.log('Autoplay forhindret:', e));
+                }
+            } else {
+                slide.classList.remove('active');
+                if (slide.tagName === 'VIDEO') {
+                    slide.pause();
+                }
+            }
+        });
 
-        slides[activeIndex].classList.add('active');
-        dots[activeIndex].classList.add('active');
+        dots.forEach((dot, i) => {
+            if (i === activeIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
     }
 
     function moveSlide(sliderId, step) {
@@ -573,8 +545,8 @@ void fillStrip(CRGB strip[], int amount) {
         showSlide(sliderId, index);
     }
 
-    // Start slider-systemet ved indlæsning
-    initSliders();
+    // Start når siden er hentet
+    document.addEventListener('DOMContentLoaded', initSliders);
 </script>
 
 </body>
