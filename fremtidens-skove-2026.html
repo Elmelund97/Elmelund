@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guldsmeden - Fremtidens Skove (2026) | Casper Elmelund Poulsen</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0b0f;
+            color: #f4f4f5;
+            line-height: 1.6;
+        }
+
+        /* NAVIGATION & HEADER */
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 60px 25px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #c084fc;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 40px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .project-year {
+            color: #c084fc;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .project-header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 20px;
+        }
+
+        .project-description {
+            color: #b5b5bd;
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        /* HERO MEDIE I TOPPEN (VIDEO ELLER BILLEDE) */
+        .main-media-container {
+            width: 60%;
+            margin: 40px auto 80px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .main-media-container img,
+        .main-media-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .section-title {
+            color: #a855f7;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        /* TIDSLINJE */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid rgba(168, 85, 247, 0.3);
+            margin-bottom: 90px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -37px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #a855f7;
+            box-shadow: 0 0 10px #a855f7;
+        }
+
+        .timeline-date {
+            color: #c084fc;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        .timeline-content p {
+            color: #b5b5bd;
+            margin-bottom: 20px;
+        }
+
+        .timeline-media {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+            max-height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* SLIDER STYLING INDE I FASE 1 */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .slider {
+            display: flex;
+            width: 100%;
+        }
+
+        .slide {
+            width: 100%;
+            display: none;
+            height: auto;
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        /* PILE TIL NAVIGATION */
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(11, 11, 15, 0.7);
+            color: #c084fc;
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            font-size: 1rem;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: 0.3s;
+            user-select: none;
+        }
+
+        .prev:hover, .next:hover {
+            background: #a855f7;
+            color: white;
+        }
+
+        .prev { left: 10px; }
+        .next { right: 10px; }
+
+        /* MIDTERSTILLEDE LINJER */
+        .dots-container {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 20px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active, .dot:hover {
+            background: #c084fc;
+            width: 30px;
+        }
+
+        /* ARDUINO KODE SEKTION */
+        .code-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .code-header span {
+            font-family: monospace;
+            color: #c084fc;
+            font-size: 0.9rem;
+        }
+
+        pre {
+            background: #050508;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #4ade80;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 800px) {
+            .main-media-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- TILBAGE KNAP -->
+    <a href="index.html" class="back-link">← Tilbage til portfolio</a>
+
+    <!-- OVERSKRIFT & KORT BESKRIVELSE -->
+    <header class="project-header">
+        <div class="project-year">Roskilde Festival · 2026</div>
+        <h1>Guldsmeden · Fremtidens Skove</h1>
+        <p class="project-description">
+            En mekanisk og interaktiv lys-installation formet som en gigantisk guldsmed. 
+            Værket sætter fokus på natur, biodiversitet og teknologi i samspil med festivalens område.
+        </p>
+    </header>
+
+    <!-- HOVED-VIDEO I LOOP ELLER HOVEDBILLEDE UNDER BESKRIVELSEN -->
+    <div class="main-media-container">
+        <!-- Hvis du vil have en video som kører i loop her, bruges koden herunder: -->
+        <video autoplay loop muted playsinline>
+            <source src="guldsmed-hero.mp4" type="video/mp4">
+            Din browser understøtter ikke video-tagget.
+        </video>
+        <!-- Hvis du hellere vil bruge et billede i toppen, fjern videoen og indsæt: -->
+        <!-- <img src="guldsmed-hoved.jpg" alt="Guldsmeden færdigt resultat"> -->
+    </div>
+
+    <!-- PROCESSEN / TIDSLINJE -->
+    <div class="section-title">Processen</div>
+    ## Fra prototype til færdigt værk
+
+    <div class="timeline">
+
+        <!-- STEP 1 MED BILLEDE-SLIDER -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 1 · DIREKTE PROTOTYPE-ARBEJDE</div>
+            <div class="timeline-content">
+                <h3>Hands-on Byggefase utan skitser</h3>
+                <p>
+                    Projektet sprang papirskitserne over og gik direkte til det fysiske arbejde. 
+                    Der blev eksperimenteret direkte på materialerne for at teste guldsmedens vingefang, 
+                    vægtfordeling og den fysiske struktur fra starten.
+                </p>
+
+                <!-- BILLEDE SLIDER PLACERET HER I FASE 1 -->
+                <div class="slider-container">
+                    <div class="slider">
+                        <img src="billede-guldsmed-proto1.jpg" class="slide active" alt="Prototype billede 1">
+                        <img src="billede-guldsmed-proto2.jpg" class="slide" alt="Prototype billede 2">
+                        <img src="billede-guldsmed-proto3.jpg" class="slide" alt="Prototype billede 3">
+                    </div>
+
+                    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide(0)"></span>
+                        <span class="dot" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 2 (MED LOOPING VIDEO) -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 2 · ELEKTRONIK & MEKANIK</div>
+            <div class="timeline-content">
+                <h3>Motor- & Lys-test</h3>
+                <p>
+                    Montering af servomotorer og LED-strips langs guldsmedens vinger og krop. 
+                    Videoen herunder viser testen af vingernes mekaniske bevægelser og synkronisering.
+                </p>
+                <!-- VIDEO SOM LOOPING ELEMENT I TIDSLINJEN -->
+                <video class="timeline-media" autoplay loop muted playsinline>
+                    <source src="guldsmed-vinge-test.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 3 · SAMLING & SAMMENSÆTNING</div>
+            <div class="timeline-content">
+                <h3>Færdiggørelse af skelet & vinger</h3>
+                <p>
+                    Samling af alle delkomponenter, lodning af det samlede ledningsnet 
+                    samt kassettering af mikrocontrolleren til udendørs brug.
+                </p>
+                <img src="billede-guldsmed-samling.jpg" alt="Samling af guldsmeden" class="timeline-media">
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 4 · INSTALLATION I SKOVEN</div>
+            <div class="timeline-content">
+                <h3>Det færdige resultat på festivalen</h3>
+                <p>
+                    Opstillingen af Guldsmeden på Roskilde Festival 2026 i området Fremtidens Skove, 
+                    hvor den svævede blandt træerne med pulserende lys.
+                </p>
+                <img src="billede-guldsmed-faerdig.jpg" alt="Guldsmeden opstillet" class="timeline-media">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ARDUINO KODE SEKTION -->
+    <div class="section-title">Teknikken</div>
+    <h2>Arduino Kildekode</h2>
+
+    <div class="code-section">
+        <div class="code-header">
+            <span>guldsmed_styring.ino</span>
+        </div>
+        <pre><code>// Indsæt din Arduino-kode til Guldsmeden herunder:
+
+#include &lt;Servo.h&gt;
+#include &lt;Adafruit_NeoPixel.h&gt;
+
+#define LED_PIN 6
+#define NUM_LEDS 90
+
+Adafruit_NeoPixel strip(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
+Servo vingeServo;
+
+void setup() {
+  strip.begin();
+  strip.show();
+  vingeServo.attach(9);
+}
+
+void loop() {
+  // Servo-bevægelse for vinger
+  for (int pos = 0; pos <= 45; pos += 1) {
+    vingeServo.write(pos);
+    delay(15);
+  }
+  for (int pos = 45; pos >= 0; pos -= 1) {
+    vingeServo.write(pos);
+    delay(15);
+  }
+}</code></pre>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Casper Elmelund Poulsen · Portfolio
+</footer>
+
+<!-- JAVASCRIPT TIL SLIDEREN INNE I FASE 1 -->
+<script>
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+
+    function showSlide(index) {
+        if (index >= slides.length) slideIndex = 0;
+        if (index < 0) slideIndex = slides.length - 1;
+
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        slides[slideIndex].classList.add('active');
+        dots[slideIndex].classList.add('active');
+    }
+
+    function moveSlide(step) {
+        showSlide(slideIndex += step);
+    }
+
+    function currentSlide(index) {
+        showSlide(slideIndex = index);
+    }
+</script>
+
+</body>
+</html>
