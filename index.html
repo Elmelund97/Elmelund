@@ -162,18 +162,18 @@
             margin-bottom: 35px;
         }
 
-   /* ABOUT SECTION OPDATERET */
+        /* ABOUT SECTION */
         .about {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
             gap: 50px;
-            align-items: start; /* Sikrer at tekst og billede starter helt lige i toppen */
+            align-items: start;
         }
 
         .about-text {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* Retter teksten til at starte fra toppen */
+            justify-content: flex-start;
         }
 
         .about-text p {
@@ -191,7 +191,7 @@
 
         .about-image img {
             width: 100%;
-            height: auto; /* Lader billedet holde sine naturlige proportioner */
+            height: auto;
             display: block;
             object-fit: cover;
         }
@@ -264,19 +264,38 @@
             font-size: 0.95rem;
         }
 
-        /* EXPERIENCE */
-        .experience {
+        /* EXPERIENCE SECTION OPDATERET */
+        .experience-container {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: start;
             border-left: 1px solid #a855f7;
             padding-left: 30px;
         }
 
-        .experience h3 {
+        .experience-text h3 {
             font-size: 1.5rem;
             margin-bottom: 10px;
         }
 
-        .experience p {
+        .experience-text p {
             color: #aaa;
+        }
+
+        .experience-image {
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .experience-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
         }
 
         /* CONTACT */
@@ -322,6 +341,12 @@
             .about {
                 grid-template-columns: 1fr;
                 gap: 40px;
+            }
+
+            .experience-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding-left: 20px;
             }
 
             .projects {
@@ -506,30 +531,63 @@
 </section>
 
 
+<!-- ANDRE PROJEKTER -->
+<section id="other-projects">
+
+    <div class="section-label">Øvrige arbejder</div>
+
+    <h2>Andre projekter</h2>
+
+    <div class="projects">
+
+        <a href="ugle-ruc-2026.html" class="project">
+            <div>
+                <div class="project-year">2026</div>
+
+                <h3>Ugle til RUCs årsfest</h3>
+
+                <p>
+                    Et kreativt og interaktivt projekt udarbejdet til RUCs årsfest med fokus på visuel formgivning og stemningsfuld installation.
+                </p>
+            </div>
+        </a>
+
+    </div>
+
+</section>
+
+
 <!-- EXPERIENCE -->
 <section>
 
     <div class="section-label">Erfaring</div>
 
-    <div class="experience">
+    <div class="experience-container">
 
-        <h3>Flere års kreativ udvikling til Roskilde Festival</h3>
+        <div class="experience-text">
+            <h3>Flere års kreativ udvikling til Roskilde Festival</h3>
 
-        <p>
-            Gennem flere år har jeg været involveret i udviklingen og
-            skabelsen af designs og kunstinstallationer til Roskilde
-            Festival. Arbejdet har givet mig erfaring med hele den kreative
-            proces — fra idéudvikling og koncept til design, modellering,
-            fabrication og det færdige værk.
-        </p>
+            <p>
+                Gennem flere år har jeg været involveret i udviklingen og
+                skabelsen af designs og kunstinstallationer til Roskilde
+                Festival. Arbejdet har givet mig erfaring med hele den kreative
+                proces — fra idéudvikling og koncept til design, modellering,
+                fabrication og det færdige værk.
+            </p>
 
-        <br>
+            <br>
 
-        <p>
-            Jeg arbejder gerne eksperimenterende og lærer gennem processen,
-            især når digitale værktøjer, elektronik og fysisk produktion kan
-            kombineres med kunst og design.
-        </p>
+            <p>
+                Jeg arbejder gerne eksperimenterende og lærer gennem processen,
+                især når digitale værktøjer, elektronik og fysisk produktion kan
+                kombineres med kunst og design.
+            </p>
+        </div>
+
+        <!-- Billede til højre for teksten i Erfaring -->
+        <div class="experience-image">
+            <img src="roskilde-erfaring.jpg" alt="Kreativ udvikling til Roskilde Festival">
+        </div>
 
     </div>
 
