@@ -32,7 +32,7 @@
             text-decoration: none;
             font-weight: bold;
             margin-bottom: 40px;
-            transition: 0.3s;
+            transition: transform 0.3s ease;
         }
 
         .back-link:hover {
@@ -64,13 +64,15 @@
             margin: auto;
         }
 
-        /* HERO BILLEDE I MIDTEN */
+        /* HERO BILLEDE */
         .main-image-container {
-            width: 50%;
+            width: 100%;
+            max-width: 550px;
             margin: 40px auto 80px;
             border-radius: 18px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
         }
 
         .main-image-container img {
@@ -78,6 +80,11 @@
             height: auto;
             display: block;
             object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .main-image-container:hover img {
+            transform: scale(1.02);
         }
 
         .section-title {
@@ -138,12 +145,88 @@
             margin-bottom: 20px;
         }
 
+        /* KLIKBARE BILLEDER I TIDSLINJE */
+        .timeline-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
         .timeline-image {
             width: 100%;
             border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             max-height: 400px;
             object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .timeline-image-wrapper:hover .timeline-image {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+
+        /* LIGHTBOX / MODAL STYLES */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(5, 5, 8, 0.92);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox-modal.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-caption {
+            margin-top: 15px;
+            color: #b5b5bd;
+            font-size: 0.95rem;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #f4f4f5;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            user-select: none;
+        }
+
+        .lightbox-close:hover {
+            color: #c084fc;
         }
 
         /* ARDUINO KODE SEKTION */
@@ -152,7 +235,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
             padding: 30px;
-            margin-top: 50px;
+            margin-top: 30px;
         }
 
         .code-header {
@@ -178,7 +261,7 @@
 
         code {
             font-family: 'Courier New', Courier, monospace;
-            color: #4ade80; /* Grøn kodefarve */
+            color: #4ade80;
             font-size: 0.9rem;
             line-height: 1.5;
         }
@@ -188,7 +271,7 @@
             text-align: center;
             padding: 40px 20px;
             color: #666;
-            border-top: 1px solid rgba(255,255,255,0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             font-size: 0.85rem;
         }
     </style>
@@ -206,92 +289,101 @@
         <h1>Den interaktive paraply</h1>
         <p class="project-description">
             En interaktiv kunstinstallation udviklet til Roskilde Festival. 
-            Projektet kombinerede bevægelses sensorer, programmering, servoer og interaktivt design 
+            Projektet kombinerede bevægelsessensorer, programmering, servoer og interaktivt design 
             for at skabe et fælles mødested for festivalgængerne.
         </p>
     </header>
 
-    <!-- BILLEDE I MIDTEN -->
-    <div class="main-image-container">
-        <!-- Udskift 'billede-paraply-hoved.jpg' med sti til dit eget billede -->
-        <img src="16.jpg" alt="Den interaktive paraply færdigt resultat">
-    </div>
+    <main>
+        <!-- BILLEDE I MIDTEN -->
+        <div class="main-image-container">
+            <img src="16.jpg" alt="Den interaktive paraply færdigt resultat" class="lightbox-trigger">
+        </div>
 
-    <!-- PROCESSEN / TIDSLINJE -->
-    <div class="section-title">Processen</div>
-    <h2>Fra idé til installation</h2>
+        <!-- PROCESSEN / TIDSLINJE -->
+        <section>
+            <div class="section-title">Processen</div>
+            <h2>Fra idé til installation</h2>
 
-    <div class="timeline">
+            <div class="timeline">
+                <!-- STEP 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">FASE 1 · IDÉ & SKITSER</div>
+                    <div class="timeline-content">
+                        <h3>Konceptudvikling & Research</h3>
+                        <p>
+                            De første tanker omkring hvordan en almindelig genstand som en paraply 
+                            skulle forvandles til et interaktivt lysværk. Der blev lavet skitser over 
+                            placering af lysdioder og sensorer.
+                        </p>
+                        <div class="timeline-image-wrapper">
+                            <img src="1.jpg" alt="Skitser af paraplyen" class="timeline-image lightbox-trigger">
+                        </div>
+                    </div>
+                </div>
 
-        <!-- STEP 1 -->
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-date">FASE 1 · IDÉ & SKITSER</div>
-            <div class="timeline-content">
-                <h3>Konceptudvikling & Research</h3>
-                <p>
-                    De første tanker omkring hvordan en almindelig genstand som en paraply 
-                    kunne forvandles til et interaktivt lysværk. Der blev lavet skitser over 
-                    placering af lysdioder og sensorer.
-                </p>
-                <img src="1.jpg" alt="Skitser af paraplyen" class="timeline-image">
+                <!-- STEP 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">FASE 2 · ELEKTRONIK & PROTOTYPE</div>
+                    <div class="timeline-content">
+                        <h3>Arduino & Prototype-test</h3>
+                        <p>
+                            Test af Arduino-mikrocontrolleren, lodning af NeoPixel LED-strips og 
+                            opsætning af sensorer på breadboard for at tjekke lysmønstre og respons.
+                        </p>
+                        <div class="timeline-image-wrapper">
+                            <img src="18.jpg" alt="Elektronik prototype test" class="timeline-image lightbox-trigger">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">FASE 3 · FABRICATION & MONTERING</div>
+                    <div class="timeline-content">
+                        <h3>Fysisk samling</h3>
+                        <p>
+                            Montering af elektronikken i selve paraplystativet. Ledninger blev skjult, 
+                            og strukturen blev forstærket, så den kunne modstå vind og vejr på Roskilde Festival.
+                        </p>
+                        <div class="timeline-image-wrapper">
+                            <img src="12.jpeg" alt="Montering af paraplyen" class="timeline-image lightbox-trigger">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">FASE 4 · OPSTILLING PÅ FESTIVALEN</div>
+                    <div class="timeline-content">
+                        <h3>Det færdige resultat</h3>
+                        <p>
+                            Installation på festivalpladsen, hvor publikum kunne interagere med paraplyen 
+                            og opleve, hvordan lyset reagerede på deres bevægelser.
+                        </p>
+                        <div class="timeline-image-wrapper">
+                            <img src="17.jpg" alt="Paraplyen på Roskilde Festival" class="timeline-image lightbox-trigger">
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <!-- STEP 2 -->
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-date">FASE 2 · ELEKTRONIK & PROTOTYPE</div>
-            <div class="timeline-content">
-                <h3>Arduino & Prototype-test</h3>
-                <p>
-                    Test af Arduino-mikrocontrolleren, lodning af NeoPixel LED-strips og 
-                    opsætning af sensorer på breadboard for at tjekke lysmønstre og respons.
-                </p>
-                <img src="18.jpg" alt="Elektronik prototype test" class="timeline-image">
-            </div>
-        </div>
+        <!-- ARDUINO KODE SEKTION -->
+        <section>
+            <div class="section-title">Teknikken</div>
+            <h2>Arduino Kildekode</h2>
 
-        <!-- STEP 3 -->
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-date">FASE 3 · FABRICATION & MONTERING</div>
-            <div class="timeline-content">
-                <h3>Fysisk samling</h3>
-                <p>
-                    Montering af elektronikken i selve paraplystativet. Ledninger blev skjult, 
-                    og strukturen blev forstærket, så den kunne modstå vind og vejr på Roskilde Festival.
-                </p>
-                <img src="12.jpeg" alt="Montering af paraplyen" class="timeline-image">
-            </div>
-        </div>
+            <div class="code-section">
+                <div class="code-header">
+                    <span>paraply_styring.ino</span>
+                </div>
+                <pre><code>#include &lt;Servo.h&gt;
 
-        <!-- STEP 4 -->
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-date">FASE 4 · OPSTILLING PÅ FESTIVALEN</div>
-            <div class="timeline-content">
-                <h3>Det færdige resultat</h3>
-                <p>
-                    Installation på festivalpladsen, hvor publikum kunne interagere med paraplyen 
-                    og opleve, hvordan lyset reagerede på deres bevægelser.
-                </p>
-                <img src="17.jpg" alt="Paraplyen på Roskilde Festival" class="timeline-image">
-            </div>
-        </div>
-
-    </div>
-
-    <!-- ARDUINO KODE SEKTION -->
-    <div class="section-title">Teknikken</div>
-    <h2>Arduino Kildekode</h2>
-
-    <div class="code-section">
-        <div class="code-header">
-            <span>paraply_styring.ino</span>
-        </div>
-        <pre><code>// Indsæt din Arduino-kode herunder:
-#include <Servo.h>
 Servo servo1;
 Servo servo2;
 Servo servo3;
@@ -299,7 +391,6 @@ Servo servo4;
 Servo servo5; 
 Servo servo6; 
 
-int pos = 0;
 bool lastState = false;
 bool personNear = false;
 
@@ -314,98 +405,121 @@ void setup() {
 }
 
 void loop() {
-  Serial.println(analogRead(A0));     //antal bevægelsessensor vi bruger og deres placering
+  Serial.println(analogRead(A0));
   Serial.println(analogRead(A1));
   Serial.println(analogRead(A2));
   Serial.println(analogRead(A3));
-  // myservo.write(pos);
 
-/*
- if (analogRead(A0) <  100 && pos <  95) {
-    pos = pos + 1; 
-  } else if (analogRead(A0) >  100 && pos > 0) {
-    pos = pos - 1;
-  }
-  */
-  if((analogRead(A0) >= 200) || (analogRead(A1) >= 200) || (analogRead(A2) >= 200) || (analogRead(A3) >= 200))
-  {
+  if ((analogRead(A0) &gt;= 200) || (analogRead(A1) &gt;= 200) || 
+      (analogRead(A2) &gt;= 200) || (analogRead(A3) &gt;= 200)) {
     personNear = true;
     Serial.println("PN t");
-  }
-  else
+  } else {
     personNear = false;
-
-  if((personNear == true) && (lastState == false))
-  {
-     lower();
-     lastState = true;
-     Serial.println("now True");
-     delay(2000);
-     return;
-
   }
 
-  if((personNear == false) && (lastState == true))
-  {
-     raise();
-     lastState = false;
-      Serial.println("now False");
-      delay(2000);
-      return;
+  if (personNear &amp;&amp; !lastState) {
+    lower();
+    lastState = true;
+    Serial.println("now True");
+    delay(2000);
+    return;
   }
-    //Serial.println(pos);
-/*
-  pos = constrain(pos, 0, 95);
-  servo1.write(95 + pos);       //antal servo der kobles på dvs. servo1,2,3,4 osv.
-  servo2.write(95 + pos); 
-  servo3.write(95 + pos); 
-  servo4.write(95 + pos);
-  servo5.write(95 + pos);
-  servo6.write(95 + pos);
-*/
+
+  if (!personNear &amp;&amp; lastState) {
+    raise();
+    lastState = false;
+    Serial.println("now False");
+    delay(2000);
+    return;
+  }
+
   delay(500);
 }
 
-void raise()
-{
-    for(int i = 10; i<= 90; i++)
-    {
-      servo1.write(i);       //antal servo der kobles på dvs. servo1,2,3,4 osv.
-      servo2.write(i); 
-      servo3.write(i); 
-      servo4.write(i);
-      servo5.write(i);
-      servo6.write(i);
-      delay(30);        //Ændre hastighed på armene
-      
-    }
+void raise() {
+  for (int i = 10; i &lt;= 90; i++) {
+    servo1.write(i);
+    servo2.write(i); 
+    servo3.write(i); 
+    servo4.write(i);
+    servo5.write(i);
+    servo6.write(i);
+    delay(30);
+  }
 }
 
-void lower()
-{
-    for(int i = 90; i>= 10; i--)
-    {
-      servo1.write(i);       //antal servo der kobles på dvs. servo1,2,3,4 osv.
-      servo2.write(i); 
-      servo3.write(i); 
-      servo4.write(i);
-      servo5.write(i);
-      servo6.write(i);
-      delay(30);      //Ændre hastighed på armene
-      
-    }
-}
-
-
-
+void lower() {
+  for (int i = 90; i &gt;= 10; i--) {
+    servo1.write(i);
+    servo2.write(i); 
+    servo3.write(i); 
+    servo4.write(i);
+    servo5.write(i);
+    servo6.write(i);
+    delay(30);
+  }
 }</code></pre>
-    </div>
+            </div>
+        </section>
+    </main>
 
+</div>
+
+<!-- LIGHTBOX MODAL ELEMENT -->
+<div id="lightbox" class="lightbox-modal">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img" alt="Forstørret billede">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
 </div>
 
 <footer>
     © 2026 Casper Elmelund Poulsen · Portfolio
 </footer>
+
+<!-- LIGHTBOX JAVASCRIPT -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('lightbox');
+        const modalImg = document.getElementById('lightbox-img');
+        const captionText = document.getElementById('lightbox-caption');
+        const closeBtn = document.querySelector('.lightbox-close');
+        const triggers = document.querySelectorAll('.lightbox-trigger');
+
+        // Åbn modal ved klik på billede
+        triggers.forEach(img => {
+            img.addEventListener('click', () => {
+                modal.classList.add('active');
+                modalImg.src = img.src;
+                captionText.textContent = img.alt;
+                document.body.style.overflow = 'hidden'; // Forhindrer scroll i baggrunden
+            });
+        });
+
+        // Luk modal-funktion
+        const closeModal = () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Genaktiver scroll
+        };
+
+        // Luk ved klik på X-knap
+        closeBtn.addEventListener('click', closeModal);
+
+        // Luk ved klik uden for billedet
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Luk ved tryk på ESC-tasten
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
