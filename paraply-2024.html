@@ -168,6 +168,52 @@
             filter: brightness(1.1);
         }
 
+        /* VIDEO SEKTION */
+        .video-section {
+            margin-bottom: 90px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .video-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-wrapper {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+            margin-bottom: 12px;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .video-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            color: #f4f4f5;
+        }
+
+        .video-info p {
+            font-size: 0.85rem;
+            color: #b5b5bd;
+            line-height: 1.4;
+        }
+
         /* LIGHTBOX / MODAL STYLES */
         .lightbox-modal {
             display: none;
@@ -236,6 +282,7 @@
             border-radius: 16px;
             padding: 30px;
             margin-top: 30px;
+            margin-bottom: 60px;
         }
 
         .code-header {
@@ -368,6 +415,56 @@
                         <div class="timeline-image-wrapper">
                             <img src="17.jpg" alt="Paraplyen på Roskilde Festival" class="timeline-image lightbox-trigger">
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIDEO SEKTION (OP TIL 3 VIDEOER) -->
+        <section class="video-section">
+            <div class="section-title">Dokumentation</div>
+            <h2>Videoer fra projektet</h2>
+
+            <div class="video-grid">
+                <!-- VIDEO 1 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video controls poster="18.jpg">
+                            <source src="video1.mp4" type="video/mp4">
+                            Din browser understøtter ikke video-tagget.
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h4>Prototype Test</h4>
+                        <p>Første test af servomotorerne og sensor-responsen i værkstedet.</p>
+                    </div>
+                </div>
+
+                <!-- VIDEO 2 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video controls poster="12.jpeg">
+                            <source src="video2.mp4" type="video/mp4">
+                            Din browser understøtter ikke video-tagget.
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h4>Samling & Mekanik</h4>
+                        <p>Demonstration af paraplyens åbne- og lukkemekanisme under opsætning.</p>
+                    </div>
+                </div>
+
+                <!-- VIDEO 3 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video controls poster="17.jpg">
+                            <source src="video3.mp4" type="video/mp4">
+                            Din browser understøtter ikke video-tagget.
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h4>Roskilde Festival i aktion</h4>
+                        <p>Publikums interaktion med installationen under festivalen.</p>
                     </div>
                 </div>
             </div>
