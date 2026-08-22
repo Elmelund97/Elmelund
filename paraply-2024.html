@@ -1,261 +1,622 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projekt Process & Video Slider</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Den interaktive paraply (2024) | Casper Elmelund Poulsen</title>
 
-  <!-- Swiper CSS (Slider bibliotek) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0b0f;
+            color: #f4f4f5;
+            line-height: 1.6;
+        }
 
-    body {
-      background-color: #0f1115;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-    }
+        /* NAVIGATION & HEADER */
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 60px 25px;
+        }
 
-    /* SECTION 1: Tidslinje over projektprocessen */
-    .timeline-section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 60px 20px;
-    }
+        .back-link {
+            display: inline-block;
+            color: #c084fc;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease;
+        }
 
-    .timeline-section h2 {
-      text-align: center;
-      font-size: 2rem;
-      margin-bottom: 40px;
-      color: #fff;
-    }
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
 
-    .timeline {
-      position: relative;
-      border-left: 2px solid #333;
-      padding-left: 30px;
-      margin-left: 20px;
-    }
+        .project-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
 
-    .timeline-item {
-      position: relative;
-      margin-bottom: 40px;
-    }
+        .project-year {
+            color: #c084fc;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
 
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -37px;
-      top: 5px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background-color: #007aff;
-      border: 2px solid #0f1115;
-    }
+        .project-header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 20px;
+        }
 
-    .timeline-item h3 {
-      font-size: 1.2rem;
-      margin-bottom: 8px;
-    }
+        .project-description {
+            color: #b5b5bd;
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: auto;
+        }
 
-    .timeline-item p {
-      color: #aaa;
-      line-height: 1.5;
-    }
+        /* HERO BILLEDE */
+        .main-image-container {
+            width: 100%;
+            max-width: 550px;
+            margin: 40px auto 80px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
 
-    /* SECTION 2: Video Slider i bunden */
-    .video-slider-section {
-      width: 100%;
-      padding: 40px 0 80px 0;
-      background-color: #050505;
-    }
+        .main-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
 
-    .video-slider-section h2 {
-      text-align: center;
-      font-size: 1.8rem;
-      margin-bottom: 30px;
-    }
+        .main-image-container:hover img {
+            transform: scale(1.02);
+        }
 
-    .swiper {
-      width: 100%;
-      max-width: 1100px; /* Tilpas bredden på slideren efter ønske */
-      height: 550px; /* Tilpas højden på videoerne */
-      border-radius: 12px;
-      overflow: hidden;
-    }
+        .section-title {
+            color: #a855f7;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
 
-    .swiper-slide {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background-color: #000;
-    }
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
 
-    /* Standard stil for slider-videoer */
-    .slider-video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+        /* TIDSLINJE */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid rgba(168, 85, 247, 0.3);
+            margin-bottom: 90px;
+        }
 
-    /* SPECIFIK CROP TIL PARAPLY-VIDEOEN */
-    .crop-umbrella {
-      object-fit: cover;
-      /* Zoomer ind på midten af videoen så fokus kun er på paraplyen */
-      transform: scale(2.0); 
-      transform-origin: center center;
-    }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+        }
 
-    /* Tilpasning af pilene til navigation */
-    .swiper-button-next,
-    .swiper-button-prev {
-      color: #ffffff;
-      background: rgba(0, 0, 0, 0.5);
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-    }
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
 
-    .swiper-button-next::after,
-    .swiper-button-prev::after {
-      font-size: 20px;
-      font-weight: bold;
-    }
+        .timeline-dot {
+            position: absolute;
+            left: -37px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #a855f7;
+            box-shadow: 0 0 10px #a855f7;
+        }
 
-    .swiper-pagination-bullet {
-      background: #ffffff;
-      opacity: 0.5;
-    }
+        .timeline-date {
+            color: #c084fc;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
 
-    .swiper-pagination-bullet-active {
-      opacity: 1;
-      background: #007aff;
-    }
-  </style>
+        .timeline-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        .timeline-content p {
+            color: #b5b5bd;
+            margin-bottom: 20px;
+        }
+
+        /* KLIKBARE BILLEDER I TIDSLINJE */
+        .timeline-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .timeline-image {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            max-height: 400px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .timeline-image-wrapper:hover .timeline-image {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+
+        /* VIDEO SEKTION */
+        .video-section {
+            margin-bottom: 90px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .video-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-wrapper {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+            margin-bottom: 12px;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .video-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            color: #f4f4f5;
+        }
+
+        .video-info p {
+            font-size: 0.85rem;
+            color: #b5b5bd;
+            line-height: 1.4;
+        }
+
+        /* LIGHTBOX / MODAL STYLES */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(5, 5, 8, 0.92);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox-modal.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-caption {
+            margin-top: 15px;
+            color: #b5b5bd;
+            font-size: 0.95rem;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #f4f4f5;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            user-select: none;
+        }
+
+        .lightbox-close:hover {
+            color: #c084fc;
+        }
+
+        /* ARDUINO KODE SEKTION */
+        .code-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 30px;
+            margin-bottom: 60px;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .code-header span {
+            font-family: monospace;
+            color: #c084fc;
+            font-size: 0.9rem;
+        }
+
+        pre {
+            background: #050508;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #4ade80;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.85rem;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- ========================================== -->
-  <!-- TIDSLINJE / PROCES AF PROJEKTET           -->
-  <!-- ========================================== -->
-  <section class="timeline-section">
-    <h2>Projektets Tidslinje & Proces</h2>
+<div class="container">
     
-    <div class="timeline">
-      <div class="timeline-item">
-        <h3>Fase 1: Idé & Koncept</h3>
-        <p>Gennemgang af idéer, skitsering og planlægning af visuelle effekter.</p>
-      </div>
+    <!-- TILBAGE KNAP -->
+    <a href="index.html" class="back-link">← Tilbage til portfolio</a>
 
-      <div class="timeline-item">
-        <h3>Fase 2: Optagelser & Animation</h3>
-        <p>Optagelse af råmateriale samt produktion af sekvenser med paraplyen.</p>
-      </div>
+    <!-- OVERSKRIFT & KORT BESKRIVELSE -->
+    <header class="project-header">
+        <div class="project-year">Roskilde Festival · 2024</div>
+        <h1>Den interaktive paraply</h1>
+        <p class="project-description">
+            En interaktiv kunstinstallation udviklet til Roskilde Festival. 
+            Projektet kombinerede bevægelsessensorer, programmering, servoer og interaktivt design 
+            for at skabe et fælles mødested for festivalgængerne.
+        </p>
+    </header>
 
-      <div class="timeline-item">
-        <h3>Fase 3: Klippeproces & Opdeling</h3>
-        <p>Opdeling af hovedvideoen i to separate klip samt finpudsning af overgange.</p>
-      </div>
-
-      <div class="timeline-item">
-        <h3>Fase 4: Final Presentation</h3>
-        <p>Se det endelige resultat i video-slideren nedenfor.</p>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ========================================== -->
-  <!-- VIDEO SLIDER I BUNDEN                     -->
-  <!-- ========================================== -->
-  <section class="video-slider-section">
-    <h2>Videopræsentation</h2>
-
-    <div class="swiper videoSlider">
-      <div class="swiper-wrapper">
-
-        <!-- SLIDE 1: Video 1 - Klippesektion 1 -->
-        <div class="swiper-slide">
-          <video class="slider-video" autoplay loop muted playsinline preload="auto">
-            <source src="video1_del1.mp4" type="video/mp4">
-            Din browser understøtter ikke video-tagget.
-          </video>
+    <main>
+        <!-- BILLEDE I MIDTEN -->
+        <div class="main-image-container">
+            <img src="16.jpg" alt="Den interaktive paraply færdigt resultat" class="lightbox-trigger">
         </div>
 
-        <!-- SLIDE 2: Video 1 - Klippesektion 2 -->
-        <div class="swiper-slide">
-          <video class="slider-video" autoplay loop muted playsinline preload="auto">
-            <source src="video1_del2.mp4" type="video/mp4">
-            Din browser understøtter ikke video-tagget.
-          </video>
-        </div>
+        <!-- PROCESSEN / TIDSLINJE -->
+        <section>
+            <div class="section-title">Processen</div>
+            <h2>Fra idé til installation</h2>
 
-        <!-- SLIDE 3: Video 2 - Beskåret til fokus på paraplyen -->
-        <div class="swiper-slide">
-          <video class="slider-video crop-umbrella" autoplay loop muted playsinline preload="auto">
-            <source src="paraply_video.mp4" type="video/mp4">
-            Din browser understøtter ikke video-tagget.
-          </video>
-        </div>
+            <div class="timeline">
+                <!-- STEP 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">FASE 1 · IDÉ & SKITSER</div>
+                    <div class="timeline-content">
+                        <h3>Konceptudvikling & Research</h3>
+                        <p>
+                            De første tanker omkring hvordan en almindelig genstand som en paraply 
+                            skulle forvandles til et interaktivt lysværk. Der blev lavet skitser over 
+                            placering af lysdioder og sensorer.
+                        </p>
+                        <div class="timeline-image-wrapper">
+                            <img src="1.jpg" alt="Skitser af paraplyen" class="timeline-image lightbox-trigger">
+                        </div>
+                    </div>
+                </div>
 
-      </div>
+                <!-- STEP 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">FASE 2 · ELEKTRONIK & PROTOTYPE</div>
+                    <div class="timeline-content">
+                        <h3>Arduino & Prototype-test</h3>
+                        <p>
+                            Test af Arduino-mikrocontrolleren, lodning af NeoPixel LED-strips og 
+                            opsætning af sensorer på breadboard for at tjekke lysmønstre og respons.
+                        </p>
+                        <div class="timeline-image-wrapper">
+                            <img src="18.jpg" alt="Elektronik prototype test" class="timeline-image lightbox-trigger">
+                        </div>
+                    </div>
+                </div>
 
-      <!-- Navigation: Frem og tilbage pile -->
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
+                <!-- STEP 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">FASE 3 · FABRICATION & MONTERING</div>
+                    <div class="timeline-content">
+                        <h3>Fysisk samling</h3>
+                        <p>
+                            Montering af elektronikken i selve paraplystativet. Ledninger blev skjult, 
+                            og strukturen blev forstærket, så den kunne modstå vind og vejr på Roskilde Festival.
+                        </p>
+                        <div class="timeline-image-wrapper">
+                            <img src="12.jpeg" alt="Montering af paraplyen" class="timeline-image lightbox-trigger">
+                        </div>
+                    </div>
+                </div>
 
-      <!-- Navigation: Prikker i bunden -->
-      <div class="swiper-pagination"></div>
-    </div>
-  </section>
+                <!-- STEP 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">FASE 4 · OPSTILLING PÅ FESTIVALEN</div>
+                    <div class="timeline-content">
+                        <h3>Det færdige resultat</h3>
+                        <p>
+                            Installation på festivalpladsen, hvor publikum kunne interagere med paraplyen 
+                            og opleve, hvordan lyset reagerede på deres bevægelser.
+                        </p>
+                        <div class="timeline-image-wrapper">
+                            <img src="17.jpg" alt="Paraplyen på Roskilde Festival" class="timeline-image lightbox-trigger">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <!-- Swiper JS Script -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <!-- VIDEO SEKTION (OP TIL 3 VIDEOER) -->
+        <section class="video-section">
+            <div class="section-title">Dokumentation</div>
+            <h2>Videoer fra projektet</h2>
 
-  <script>
-    const swiper = new Swiper('.videoSlider', {
-      // Loop mode gør, at man kan navigere uendeligt frem og tilbage
-      loop: true,
-      
-      // Hastighed på overgangen i millisekunder
-      speed: 600,
+            <div class="video-grid">
+                <!-- VIDEO 1 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video controls poster="18.jpg">
+                            <source src="video1.mp4" type="video/mp4">
+                            Din browser understøtter ikke video-tagget.
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h4>Prototype Test</h4>
+                        <p>Første test af servomotorerne og sensor-responsen i værkstedet.</p>
+                    </div>
+                </div>
 
-      // Aktiver navigation med pile
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
+                <!-- VIDEO 2 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video controls poster="12.jpeg">
+                            <source src="video2.mp4" type="video/mp4">
+                            Din browser understøtter ikke video-tagget.
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h4>Samling & Mekanik</h4>
+                        <p>Demonstration af paraplyens åbne- og lukkemekanisme under opsætning.</p>
+                    </div>
+                </div>
 
-      // Aktiver prikker i bunden
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
+                <!-- VIDEO 3 -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video controls poster="17.jpg">
+                            <source src="video3.mp4" type="video/mp4">
+                            Din browser understøtter ikke video-tagget.
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h4>Roskilde Festival i aktion</h4>
+                        <p>Publikums interaktion med installationen under festivalen.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-      // Håndterer automatisk afspilning af videoen i den aktive slide
-      on: {
-        slideChangeTransitionStart: function () {
-          // Paus alle videoer
-          const allVideos = document.querySelectorAll('.slider-video');
-          allVideos.forEach(v => v.pause());
+        <!-- ARDUINO KODE SEKTION -->
+        <section>
+            <div class="section-title">Teknikken</div>
+            <h2>Arduino Kildekode</h2>
 
-          // Start og afspil kun den aktuelt synlige video forfra
-          const activeVideo = document.querySelector('.swiper-slide-active video');
-          if (activeVideo) {
-            activeVideo.currentTime = 0;
-            activeVideo.play();
-          }
-        }
-      }
+            <div class="code-section">
+                <div class="code-header">
+                    <span>paraply_styring.ino</span>
+                </div>
+                <pre><code>#include &lt;Servo.h&gt;
+
+Servo servo1;
+Servo servo2;
+Servo servo3;
+Servo servo4; 
+Servo servo5; 
+Servo servo6; 
+
+bool lastState = false;
+bool personNear = false;
+
+void setup() {
+  Serial.begin(9600);
+  servo1.attach(8);   
+  servo2.attach(9);
+  servo3.attach(10);
+  servo4.attach(11);
+  servo5.attach(12);
+  servo6.attach(13);
+}
+
+void loop() {
+  Serial.println(analogRead(A0));
+  Serial.println(analogRead(A1));
+  Serial.println(analogRead(A2));
+  Serial.println(analogRead(A3));
+
+  if ((analogRead(A0) &gt;= 200) || (analogRead(A1) &gt;= 200) || 
+      (analogRead(A2) &gt;= 200) || (analogRead(A3) &gt;= 200)) {
+    personNear = true;
+    Serial.println("PN t");
+  } else {
+    personNear = false;
+  }
+
+  if (personNear &amp;&amp; !lastState) {
+    lower();
+    lastState = true;
+    Serial.println("now True");
+    delay(2000);
+    return;
+  }
+
+  if (!personNear &amp;&amp; lastState) {
+    raise();
+    lastState = false;
+    Serial.println("now False");
+    delay(2000);
+    return;
+  }
+
+  delay(500);
+}
+
+void raise() {
+  for (int i = 10; i &lt;= 90; i++) {
+    servo1.write(i);
+    servo2.write(i); 
+    servo3.write(i); 
+    servo4.write(i);
+    servo5.write(i);
+    servo6.write(i);
+    delay(30);
+  }
+}
+
+void lower() {
+  for (int i = 90; i &gt;= 10; i--) {
+    servo1.write(i);
+    servo2.write(i); 
+    servo3.write(i); 
+    servo4.write(i);
+    servo5.write(i);
+    servo6.write(i);
+    delay(30);
+  }
+}</code></pre>
+            </div>
+        </section>
+    </main>
+
+</div>
+
+<!-- LIGHTBOX MODAL ELEMENT -->
+<div id="lightbox" class="lightbox-modal">
+    <span class="lightbox-close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img" alt="Forstørret billede">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<footer>
+    © 2026 Casper Elmelund Poulsen · Portfolio
+</footer>
+
+<!-- LIGHTBOX JAVASCRIPT -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('lightbox');
+        const modalImg = document.getElementById('lightbox-img');
+        const captionText = document.getElementById('lightbox-caption');
+        const closeBtn = document.querySelector('.lightbox-close');
+        const triggers = document.querySelectorAll('.lightbox-trigger');
+
+        // Åbn modal ved klik på billede
+        triggers.forEach(img => {
+            img.addEventListener('click', () => {
+                modal.classList.add('active');
+                modalImg.src = img.src;
+                captionText.textContent = img.alt;
+                document.body.style.overflow = 'hidden'; // Forhindrer scroll i baggrunden
+            });
+        });
+
+        // Luk modal-funktion
+        const closeModal = () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Genaktiver scroll
+        };
+
+        // Luk ved klik på X-knap
+        closeBtn.addEventListener('click', closeModal);
+
+        // Luk ved klik uden for billedet
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Luk ved tryk på ESC-tasten
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
     });
-  </script>
+</script>
 
 </body>
 </html>
