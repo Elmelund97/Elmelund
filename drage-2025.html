@@ -424,62 +424,45 @@
         <div class="code-header">
             <span>drage_styring.ino</span>
         </div>
-        <pre><code>#include &lt;FastLED.h&gt;
-#include &lt;Servo.h&gt;
+        #include <Adafruit_NeoPixel.h>
 
-#define NUM_LEDS 60
-#define LED_PIN 6
-#define SERVO_PIN 9
-#define TRIG_PIN 3
-#define ECHO_PIN 2
+#define PIN 9
 
-CRGB leds[NUM_LEDS];
-Servo dragonTail;
 
-long duration;
-int distance;
+#define NUMPIXELS 270
+
+Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+
 
 void setup() {
-  FastLED.addLeds&lt;NEOPIXEL, LED_PIN&gt;(leds, NUM_LEDS);
-  FastLED.setBrightness(100);
-  
-  dragonTail.attach(SERVO_PIN);
-  
-  pinMode(TRIG_PIN, OUTPUT);
-  pinMode(ECHO_PIN, INPUT);
+  pixels.begin();
+
+  pixels.clear();
+
 }
 
 void loop() {
-  // Mål afstand med ultralydssensor
-  digitalWrite(TRIG_PIN, LOW);
-  delayMicroseconds(2);
-  digitalWrite(TRIG_PIN, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(TRIG_PIN, LOW);
-  
-  duration = pulseIn(ECHO_PIN, HIGH);
-  distance = duration * 0.034 / 2;
 
-  // Hvis nogen er tæt på (under 50 cm), reagerer dragen
-  if (distance &lt; 50 &amp;&amp; distance &gt; 0) {
-    // Rødt pulserende lys og halebevægelse
-    fill_solid(leds, NUM_LEDS, CRGB::Red);
-    FastLED.show();
-    
-    dragonTail.write(120);
-    delay(300);
-    dragonTail.write(60);
-    delay(300);
-  } else {
-    // Roligt blåt/lilla hvilelys
-    for (int i = 0; i &lt; NUM_LEDS; i++) {
-      leds[i] = CHSV(160 + (i * 2), 200, 150);
+// Changes the delay in all for loops
+int del = 5;
+
+    for (int i = 0; i < NUMPIXELS; i++)
+    {
+      pixels.setPixelColor(i, pixels.Color(255, 0, 0));
+      pixels.show();
+      delay(del);
     }
-    FastLED.show();
-    dragonTail.write(90); // Neutral position
-    delay(100);
-  }
-}</code></pre>
+      for (int i = 0; i < NUMPIXELS; i++)
+    {
+      pixels.setPixelColor(i, pixels.Color(255, 255, 255));
+      pixels.show();
+      delay(del);
+    }
+}
+
+
+
+
     </div>
 
 </div>
