@@ -18,7 +18,7 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #0b0b0f;
+            background: #080b09;
             color: #f4f4f5;
             line-height: 1.6;
         }
@@ -29,7 +29,7 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            background: rgba(11, 11, 15, 0.85);
+            background: rgba(8, 11, 9, 0.85);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255,255,255,0.08);
         }
@@ -50,7 +50,7 @@
         }
 
         .logo span {
-            color: #a855f7;
+            color: #4ade80;
         }
 
         nav ul {
@@ -67,580 +67,337 @@
         }
 
         nav a:hover {
-            color: #c084fc;
+            color: #4ade80;
         }
 
-        /* HERO */
-        .hero {
+        /* HERO SECTION (GRØN & INTERAKTIV) */
+        #hero {
+            position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 100px 25px 60px;
-            position: relative;
+            background: #080b09;
             overflow: hidden;
+            padding: 100px 25px 60px;
+            color: #f4f4f5;
         }
 
-    /* Tilføj denne baggrundseffekt til din hero-sektion */
-#hero {
-    position: relative;
-    overflow: hidden;
-}
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
 
-#hero::before {
-
-    content: '';
-
-    position: absolute;
-
-    top: 50%;
-
-    left: 50%;
-
-    transform: translate(-50%, -50%);
-
-    width: 350px;
-
-    height: 350px;
-
-    background: radial-gradient(circle, rgba(168,85,247,0.25) 0%, rgba(192,132,252,0.05) 50%, transparent 70%);
-
-    filter: blur(60px);
-
-    z-index: 0;
-
-    pointer-events: none;
-
-}
-
-
+        #mouse-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(74, 222, 128, 0.12) 0%, rgba(16, 185, 129, 0.02) 50%, transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 2;
+        }
 
         .hero-content {
-
-            max-width: 850px;
-
             position: relative;
-
-            z-index: 2;
-
+            z-index: 3;
+            text-align: center;
+            max-width: 850px;
         }
 
-
-
-        .hero small {
-
-            color: #c084fc;
-
-            text-transform: uppercase;
-
-            letter-spacing: 4px;
-
-            font-size: 0.8rem;
-
-        }
-
-
-
-        .hero h1 {
-
-            font-size: clamp(3rem, 8vw, 6.5rem);
-
-            line-height: 0.95;
-
-            margin: 25px 0;
-
-            letter-spacing: -4px;
-
-        }
-
-
-
-        .hero h1 span {
-
-            color: #c084fc;
-
-        }
-
-
-
-        .hero p {
-
-            max-width: 650px;
-
-            margin: auto;
-
-            color: #b5b5bd;
-
-            font-size: 1.15rem;
-
-        }
-
-
-
-        .button {
-
-            display: inline-block;
-
-            margin-top: 35px;
-
-            padding: 13px 24px;
-
-            border: 1px solid #a855f7;
-
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(74, 222, 128, 0.08);
+            border: 1px solid rgba(74, 222, 128, 0.25);
+            color: #4ade80;
+            padding: 6px 16px;
             border-radius: 30px;
+            font-size: 0.8rem;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
 
-            color: white;
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #4ade80;
+            animation: pulse 2s infinite;
+        }
 
+        .hero-content h1 {
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            line-height: 0.95;
+            margin-bottom: 25px;
+            letter-spacing: -3px;
+            font-weight: 800;
+        }
+
+        .highlight-text {
+            color: #4ade80;
+            text-shadow: 0 0 30px rgba(74, 222, 128, 0.25);
+        }
+
+        .hero-description {
+            color: #b5b5bd;
+            font-size: 1.15rem;
+            max-width: 650px;
+            margin: 0 auto 35px;
+            line-height: 1.6;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            color: #080b09;
+            background: #4ade80;
+            padding: 13px 28px;
+            border-radius: 30px;
             text-decoration: none;
-
-            transition: 0.3s;
-
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);
         }
 
-
-
-        .button:hover {
-
-            background: #a855f7;
-
+        .cta-btn:hover {
+            background: #22c55e;
             transform: translateY(-2px);
-
+            box-shadow: 0 0 25px rgba(74, 222, 128, 0.5);
         }
 
-
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
 
         /* SECTIONS */
-
         section {
-
             max-width: 1100px;
-
             margin: auto;
-
             padding: 110px 25px;
-
         }
-
-
 
         .section-label {
-
-            color: #a855f7;
-
+            color: #4ade80;
             text-transform: uppercase;
-
             letter-spacing: 3px;
-
             font-size: 0.75rem;
-
             margin-bottom: 12px;
-
         }
-
-
 
         h2 {
-
             font-size: clamp(2rem, 5vw, 3.5rem);
-
             margin-bottom: 35px;
-
         }
-
-
 
         /* ABOUT SECTION */
-
         .about {
-
             display: grid;
-
             grid-template-columns: 1.1fr 0.9fr;
-
             gap: 50px;
-
             align-items: start;
-
         }
-
-
 
         .about-text {
-
             display: flex;
-
             flex-direction: column;
-
             justify-content: flex-start;
-
         }
-
-
 
         .about-text p {
-
             color: #b5b5bd;
-
             font-size: 1.05rem;
-
         }
-
-
 
         .about-image {
-
             width: 100%;
-
             border-radius: 20px;
-
             overflow: hidden;
-
-            border: 1px solid rgba(168, 85, 247, 0.3);
-
+            border: 1px solid rgba(74, 222, 128, 0.3);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-
         }
-
-
 
         .about-image img {
-
             width: 100%;
-
             height: auto;
-
             display: block;
-
             object-fit: cover;
-
         }
-
-
 
         /* SKILLS */
-
         .skills {
-
             display: flex;
-
             flex-wrap: wrap;
-
             gap: 12px;
-
         }
-
-
 
         .skill {
-
             padding: 10px 17px;
-
             border: 1px solid rgba(255,255,255,0.12);
-
             border-radius: 25px;
-
             color: #ddd;
-
             background: rgba(255,255,255,0.03);
-
             transition: 0.3s;
-
         }
-
-
 
         .skill:hover {
-
-            border-color: #a855f7;
-
+            border-color: #4ade80;
+            color: #4ade80;
             transform: translateY(-3px);
-
         }
-
-
 
         /* PROJECTS */
-
         .projects {
-
             display: grid;
-
             grid-template-columns: repeat(3, 1fr);
-
             gap: 22px;
-
         }
-
-
 
         .project {
-
             min-height: 330px;
-
             padding: 30px;
-
             border: 1px solid rgba(255,255,255,0.1);
-
             border-radius: 18px;
-
             background: linear-gradient(
-
                 145deg,
-
                 rgba(255,255,255,0.05),
-
                 rgba(255,255,255,0.015)
-
             );
-
             display: flex;
-
             flex-direction: column;
-
             justify-content: flex-start;
-
             transition: 0.4s;
-
             text-decoration: none;
-
             color: inherit;
-
         }
-
-
 
         .project:hover {
-
             transform: translateY(-8px);
-
-            border-color: rgba(192,132,252,0.6);
-
+            border-color: rgba(74, 222, 128, 0.6);
         }
-
-
 
         .project-year {
-
-            color: #c084fc;
-
+            color: #86efac;
             font-size: 0.8rem;
-
             margin-bottom: 10px;
-
             letter-spacing: 2px;
-
         }
-
-
 
         .project h3 {
-
             font-size: 1.5rem;
-
             margin-bottom: 10px;
-
         }
-
-
 
         .project p {
-
             color: #aaa;
-
             font-size: 0.95rem;
-
         }
 
-
-
-        /* EXPERIENCE SECTION OPDATERET */
-
+        /* EXPERIENCE SECTION */
         .experience-container {
-
             display: grid;
-
             grid-template-columns: 1.1fr 0.9fr;
-
             gap: 50px;
-
             align-items: start;
-
-            border-left: 1px solid #a855f7;
-
+            border-left: 1px solid #4ade80;
             padding-left: 30px;
-
         }
-
-
 
         .experience-text h3 {
-
             font-size: 1.5rem;
-
             margin-bottom: 10px;
-
         }
-
-
 
         .experience-text p {
-
             color: #aaa;
-
         }
-
-
 
         .experience-image {
-
             width: 100%;
-
             border-radius: 20px;
-
             overflow: hidden;
-
-            border: 1px solid rgba(168, 85, 247, 0.3);
-
+            border: 1px solid rgba(74, 222, 128, 0.3);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-
         }
-
-
 
         .experience-image img {
-
             width: 100%;
-
             height: auto;
-
             display: block;
-
             object-fit: cover;
-
         }
-
-
 
         /* CONTACT */
-
         .contact {
-
             text-align: center;
-
         }
-
-
 
         .contact p {
-
             color: #aaa;
-
             max-width: 600px;
-
             margin: auto;
-
         }
-
-
 
         .social {
-
             margin-top: 30px;
-
         }
-
-
 
         .social a {
-
-            color: #c084fc;
-
+            color: #86efac;
             text-decoration: none;
-
             font-weight: bold;
-
         }
-
-
 
         /* FOOTER */
-
         footer {
-
             text-align: center;
-
             padding: 40px 20px;
-
             color: #666;
-
             border-top: 1px solid rgba(255,255,255,0.08);
-
             font-size: 0.85rem;
-
         }
 
-
-
         /* MOBILE */
-
         @media (max-width: 800px) {
-
             nav ul {
-
                 gap: 12px;
-
             }
-
-
 
             nav a {
-
                 font-size: 0.75rem;
-
             }
-
-
 
             .about {
-
                 grid-template-columns: 1fr;
-
                 gap: 40px;
-
             }
-
-
 
             .experience-container {
-
                 grid-template-columns: 1fr;
-
                 gap: 30px;
-
                 padding-left: 20px;
-
             }
-
-
 
             .projects {
-
                 grid-template-columns: 1fr;
-
             }
-
-
 
             .hero h1 {
-
                 letter-spacing: -2px;
-
             }
-
         } 
-
-
     </style>
 </head>
 
@@ -660,40 +417,39 @@
     </div>
 </nav>
 
+<!-- HERO SECTION -->
+<header id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div id="mouse-glow"></div>
 
-<!-- HERO -->
-<header class="hero">
     <div class="hero-content">
-
-        <small>Digital Transformation · Creative Technology · Art</small>
+        <div class="status-badge">
+            <span class="status-dot"></span>
+            Digital Transformation · Creative Technology · Art
+        </div>
 
         <h1>
             Casper<br>
-            <span>Elmelund Poulsen</span>
+            <span class="highlight-text">Elmelund Poulsen</span>
         </h1>
 
-        <p>
+        <p class="hero-description">
             Kandidatstuderende i Digital Transformation på Roskilde Universitet
-            med en passion for kreativ teknologi, kunstinstallationer og
-            design.
+            med en passion for kreativ teknologi, kunstinstallationer og design.
         </p>
 
-        <a href="#projects" class="button">
+        <a href="#projects" class="cta-btn">
             Se mine projekter ↓
         </a>
-
     </div>
 </header>
 
-
 <!-- ABOUT -->
 <section id="about">
-
     <div class="section-label">Om mig</div>
     <h2>Teknologi møder kreativitet</h2>
 
     <div class="about">
-
         <!-- Tekst i venstre side -->
         <div class="about-text">
             <p>
@@ -726,20 +482,15 @@
         <div class="about-image">
             <img src="PFB Portfolio.jpeg" alt="Casper Elmelund Poulsen">
         </div>
-
     </div>
-
 </section>
 
 <!-- SKILLS -->
 <section id="skills">
-
     <div class="section-label">Kompetencer</div>
-
     <h2>Det jeg arbejder med</h2>
 
     <div class="skills">
-
         <div class="skill">Photoshop</div>
         <div class="skill">Arduino UNO</div>
         <div class="skill">Fusion</div>
@@ -752,27 +503,19 @@
         <div class="skill">Creative Technology</div>
         <div class="skill">Art Installations</div>
         <div class="skill">Concept Development</div>
-
     </div>
-
 </section>
-
 
 <!-- PROJECTS -->
 <section id="projects">
-
     <div class="section-label">Udvalgte projekter</div>
-
     <h2>Roskilde Festival</h2>
 
     <div class="projects">
-
         <a href="paraply-2024.html" class="project">
             <div>
                 <div class="project-year">2024</div>
-
                 <h3>Den interaktive paraply</h3>
-
                 <p>
                     En interaktiv kunstinstallation udviklet til Roskilde
                     Festival, hvor teknologi og kreativt design blev
@@ -781,13 +524,10 @@
             </div>
         </a>
 
-
         <a href="drage-2025.html" class="project">
             <div>
                 <div class="project-year">2025</div>
-
                 <h3>Den lysende drage</h3>
-
                 <p>
                     En større kreativ installation med fokus på lys,
                     formgivning og atmosfære i festivalens visuelle miljø.
@@ -795,13 +535,10 @@
             </div>
         </a>
 
-
         <a href="fremtidens-skove-2026.html" class="project">
             <div>
                 <div class="project-year">2026</div>
-
                 <h3>Fremtidens skove</h3>
-
                 <p>
                     Et univers af fremtidige skove og creatures med blandt
                     andet en lysende guldsmed som en del af installationens
@@ -809,48 +546,34 @@
                 </p>
             </div>
         </a>
-
     </div>
-
 </section>
-
 
 <!-- ANDRE PROJEKTER -->
 <section id="other-projects">
-
     <div class="section-label">Øvrige arbejder</div>
-
     <h2>Andre projekter</h2>
 
     <div class="projects">
-
         <a href="ugle.html" class="project">
             <div>
                 <div class="project-year">2026</div>
-
                 <h3>Ugle til RUCs årsfest</h3>
-
                 <p>
                     Et kreativt og interaktivt projekt udarbejdet til RUCs årsfest med fokus på visuel formgivning og stemningsfuld installation.
                 </p>
             </div>
         </a>
-
     </div>
-
 </section>
-
 
 <!-- EXPERIENCE -->
 <section>
-
     <div class="section-label">Erfaring</div>
 
     <div class="experience-container">
-
         <div class="experience-text">
             <h3>Flere års kreativ udvikling til Roskilde Festival</h3>
-
             <p>
                 Gennem flere år har jeg været involveret i udviklingen og
                 skabelsen af designs og kunstinstallationer til Roskilde
@@ -858,9 +581,7 @@
                 proces — fra idéudvikling og koncept til design, modellering,
                 fabrication og det færdige værk.
             </p>
-
             <br>
-
             <p>
                 Jeg arbejder gerne eksperimenterende og lærer gennem processen,
                 især når digitale værktøjer, elektronik og fysisk produktion kan
@@ -868,21 +589,15 @@
             </p>
         </div>
 
-        <!-- Billede til højre for teksten i Erfaring -->
         <div class="experience-image">
             <img src="Mig.jpeg" alt="Kreativ udvikling til Roskilde Festival">
         </div>
-
     </div>
-
 </section>
-
 
 <!-- CONTACT -->
 <section id="contact" class="contact">
-
     <div class="section-label">Kontakt</div>
-
     <h2>Lad os skabe noget sammen.</h2>
 
     <p>
@@ -892,20 +607,102 @@
     </p>
 
     <div class="social">
-        <a href="https://www.linkedin.com/in/elmelund-cp"
-           target="_blank"
-           rel="noopener noreferrer">
+        <a href="https://www.linkedin.com/in/elmelund-cp" target="_blank" rel="noopener noreferrer">
             LinkedIn →
         </a>
     </div>
-
 </section>
-
 
 <!-- FOOTER -->
 <footer>
     © 2026 Casper Elmelund Poulsen · Portfolio
 </footer>
+
+<!-- INTERAKTIV BAGGRUNDS-JAVASCRIPT -->
+<script>
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    const heroSection = document.getElementById('hero');
+    const glow = document.getElementById('mouse-glow');
+
+    let particles = [];
+    const particleCount = 45;
+
+    function resizeCanvas() {
+        canvas.width = heroSection.offsetWidth;
+        canvas.height = heroSection.offsetHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.speedX = (Math.random() - 0.5) * 0.5;
+            this.speedY = (Math.random() - 0.5) * 0.5;
+            this.alpha = Math.random() * 0.5 + 0.2;
+        }
+
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            if (this.x < 0) this.x = canvas.width;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.y < 0) this.y = canvas.height;
+            if (this.y > canvas.height) this.y = 0;
+        }
+
+        draw() {
+            ctx.fillStyle = `rgba(74, 222, 128, ${this.alpha})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 110) {
+                    ctx.strokeStyle = `rgba(74, 222, 128, ${0.12 - distance / 1000})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    heroSection.addEventListener('mousemove', (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        glow.style.left = `${x}px`;
+        glow.style.top = `${y}px`;
+    });
+</script>
 
 </body>
 </html>
