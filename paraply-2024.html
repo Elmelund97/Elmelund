@@ -1,382 +1,581 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Den Interaktive Paraply - Projekt & Dokumentation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paraplyen - Interaktiv Installation | Casper Elmelund Poulsen</title>
 
-  <style>
-    /* ========================================== */
-    /* GENERAL STYLING                           */
-    /* ========================================== */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      background-color: #0f1115;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-      padding: 40px 20px;
-    }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0b0f;
+            color: #f4f4f5;
+            line-height: 1.6;
+        }
 
-    .main-container {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 60px 25px;
+        }
 
-    .section-title {
-      color: #007aff;
-      text-transform: uppercase;
-      font-size: 0.9rem;
-      letter-spacing: 2px;
-      margin-bottom: 5px;
-    }
+        .back-link {
+            display: inline-block;
+            color: #c084fc;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 40px;
+            transition: 0.3s;
+        }
 
-    h1, h2 {
-      margin-bottom: 25px;
-    }
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
 
-    h1 {
-      font-size: 2.5rem;
-    }
+        .project-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
 
-    h2 {
-      font-size: 1.8rem;
-    }
+        .project-year {
+            color: #c084fc;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
 
-    /* ========================================== */
-    /* TIDSLINJE MED FASER OG BILLEDE-SEKTIONER   */
-    /* ========================================== */
-    .timeline {
-      position: relative;
-      border-left: 2px solid #2a2e39;
-      padding-left: 30px;
-      margin-left: 10px;
-      margin-bottom: 80px;
-    }
+        .project-header h1 {
+            font-size: clamp(1.8rem, 4.5vw, 4rem);
+            margin-bottom: 20px;
+            white-space: nowrap;
+        }
 
-    .timeline-phase {
-      position: relative;
-      margin-bottom: 50px;
-    }
+        .project-description {
+            color: #b5b5bd;
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: auto;
+        }
 
-    /* Prikken på tidslinjen */
-    .timeline-phase::before {
-      content: '';
-      position: absolute;
-      left: -37px;
-      top: 5px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background-color: #007aff;
-      border: 3px solid #0f1115;
-    }
+        /* TOP BILLEDE */
+        .main-media-container {
+            width: 60%;
+            margin: 40px auto 80px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-    .timeline-content {
-      background: #1a1d24;
-      border-radius: 10px;
-      padding: 25px;
-    }
+        .main-media-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
 
-    .timeline-content h3 {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-      color: #ffffff;
-    }
+        .section-title {
+            color: #a855f7;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
 
-    .timeline-content p {
-      color: #b0b5c1;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
 
-    /* Grid til billeder inde i hver fase */
-    .phase-images {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
-      margin-top: 15px;
-    }
+        /* TIDSLINJE */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid rgba(168, 85, 247, 0.3);
+            margin-bottom: 90px;
+        }
 
-    .phase-images img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 6px;
-      display: block;
-      background-color: #2a2e39;
-    }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+        }
 
-    /* ========================================== */
-    /* PARAPLY VIDEO SLIDER (SAMME EKSISTERENDE FORM) */
-    /* ========================================== */
-    .video-section {
-      width: 100%;
-      margin-top: 40px;
-    }
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
 
-    .slider-container {
-      position: relative;
-      width: 100%;
-      height: 550px;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius: 12px;
-      background-color: #000;
-    }
+        .timeline-dot {
+            position: absolute;
+            left: -37px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #a855f7;
+            box-shadow: 0 0 10px #a855f7;
+        }
 
-    .slider {
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
+        .timeline-date {
+            color: #c084fc;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
 
-    /* Slides & Videoer */
-    .slide {
-      display: none;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+        .timeline-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
 
-    .slide.active {
-      display: block;
-    }
+        .timeline-content p {
+            color: #b5b5bd;
+            margin-bottom: 20px;
+        }
 
-    /* SPECIFIK CROP TIL PARAPLY-VIDEOEN (SLIDE 3) */
-    .slide.crop-umbrella {
-      object-fit: cover;
-      transform: scale(2.0); /* Zoomer ind på paraplyen */
-      transform-origin: center center;
-    }
+        /* SLIDER STYLING */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.4);
+            min-height: 250px;
+        }
 
-    /* Navigation knapper (Pile) */
-    .prev, .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      padding: 16px;
-      color: white;
-      font-weight: bold;
-      font-size: 20px;
-      transition: 0.3s ease;
-      border-radius: 50%;
-      user-select: none;
-      background-color: rgba(0, 0, 0, 0.5);
-      border: none;
-      z-index: 10;
-    }
+        .slider {
+            display: block;
+            width: 100%;
+        }
 
-    .prev {
-      left: 15px;
-    }
+        .slide {
+            width: 100%;
+            display: none;
+            height: 100%;
+            max-height: 550px;
+            object-fit: cover;
+            margin-bottom: 0;
+        }
 
-    .next {
-      right: 15px;
-    }
+        .slide.active {
+            display: block;
+        }
 
-    .prev:hover, .next:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
+        /* SPECIFIK ZOOM/CROP TIL PARAPLY VIDEO */
+        .slide.crop-umbrella {
+            object-fit: cover;
+            transform: scale(1.8);
+            transform-origin: center center;
+        }
 
-    /* Navigation Prikker (Dots) */
-    .dots-container {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      z-index: 10;
-    }
+        /* NAVIGATION PILE */
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(11, 11, 15, 0.8);
+            color: #c084fc;
+            border: 1px solid rgba(192, 132, 252, 0.4);
+            font-size: 1.2rem;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: 0.3s;
+            user-select: none;
+            z-index: 100;
+        }
 
-    .dot {
-      cursor: pointer;
-      height: 12px;
-      width: 12px;
-      background-color: rgba(255, 255, 255, 0.5);
-      border-radius: 50%;
-      display: inline-block;
-      transition: background-color 0.3s ease;
-    }
+        .prev:hover, .next:hover {
+            background: #a855f7;
+            color: white;
+        }
 
-    .dot.active, .dot:hover {
-      background-color: #ffffff;
-    }
-  </style>
+        .prev { left: 12px; }
+        .next { right: 12px; }
+
+        .dots-container {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 100;
+        }
+
+        .dot {
+            width: 20px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active, .dot:hover {
+            background: #c084fc;
+            width: 30px;
+        }
+
+        /* VIDEO SEKTION I BUNDEN */
+        .video-section {
+            margin-top: 80px;
+            margin-bottom: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 50px;
+        }
+
+        .video-title {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #c084fc;
+            top: 10px;
+        }
+
+        /* ARDUINO KODE SEKTION */
+        .code-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .code-header span {
+            font-family: monospace;
+            color: #c084fc;
+            font-size: 0.9rem;
+        }
+
+        pre {
+            background: #050508;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #4ade80;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 800px) {
+            .main-media-container {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="main-container">
+<div class="container">
+    
+    <a href="index.html" class="back-link">← Tilbage til portfolio</a>
 
-    <!-- PROJEKT OVERSKRIFT -->
-    <div class="section-title">Kreativ Udvikling</div>
-    <h1>Den Interaktive Paraply</h1>
+    <header class="project-header">
+        <div class="project-year">Interaktiv Installation · 2026</div>
+        <h1>Den Interaktive Paraply</h1>
+        <p class="project-description">
+            En kinetisk og interaktiv lys-installation baseret på en paraply-mekanisme.
+            Værket reagerer på fysisk interaktion og skaber dynamiske lysmønstre i rummet.
+        </p>
+    </header>
 
-    <!-- ========================================== -->
-    <!-- TIDSLINJE MED FASER OG BILLEDER            -->
-    <!-- ========================================== -->
+    <!-- TOP BILLEDE FOR PARAPLYEN -->
+    <div class="main-media-container">
+        <img src="P1.jpg" alt="Paraplyen hovedbillede">
+    </div>
+
+    <!-- PROCESSEN / TIDSLINJE MED BILLEDER -->
+    <div class="section-title">Processen</div>
+    <h2>Fra koncept til færdig installation</h2>
+
     <div class="timeline">
 
-      <!-- FASE 1 -->
-      <div class="timeline-phase">
-        <div class="timeline-content">
-          <h3>Fase 1: Idé, Research & Skitsering</h3>
-          <p>Indledende konceptudvikling for paraplyen. Arbejdet med de første fysiske skitser samt research på sensorer og mekanik.</p>
-          <div class="phase-images">
-            <img src="fase1_billede1.jpg" alt="Fase 1 Skitse 1">
-            <img src="fase1_billede2.jpg" alt="Fase 1 Skitse 2">
-          </div>
-        </div>
-      </div>
+        <!-- FASE 1 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 1 · SKITSERING & MEKANISK STRUKTUR</div>
+            <div class="timeline-content">
+                <h3>Hands-on Arbejde med Paraplystrikkerne</h3>
+                <p>
+                    De første eksperimenter med paraplyens folde-mekanisme og undersøgelse af, hvordan motorer kan integreres i bærearmene.
+                </p>
 
-      <!-- FASE 2 -->
-      <div class="timeline-phase">
-        <div class="timeline-content">
-          <h3>Fase 2: Prototyping & Mekanik</h3>
-          <p>Konstruktion af de første prototyper. Test af foldemekanismen og integration af elektronik i stellet.</p>
-          <div class="phase-images">
-            <img src="fase2_billede1.jpg" alt="Fase 2 Prototype 1">
-            <img src="fase2_billede2.jpg" alt="Fase 2 Prototype 2">
-          </div>
-        </div>
-      </div>
+                <div class="slider-container" id="slider-fase1">
+                    <div class="slider">
+                        <img src="P2.jpeg" class="slide active" alt="Paraply Fase 1 Billede 1">
+                        <img src="P3.jpeg" class="slide" alt="Paraply Fase 1 Billede 2">
+                        <img src="P4.png" class="slide" alt="Paraply Fase 1 Billede 3">
+                    </div>
 
-      <!-- FASE 3 -->
-      <div class="timeline-phase">
-        <div class="timeline-content">
-          <h3>Fase 3: Interaktionsdesign & Programmering</h3>
-          <p>Opsætning af sensorer samt programmering af lys og bevægelse i samspil med brugerens handlinger.</p>
-          <div class="phase-images">
-            <img src="fase3_billede1.jpg" alt="Fase 3 Programmering">
-            <img src="fase3_billede2.jpg" alt="Fase 3 Test">
-          </div>
-        </div>
-      </div>
+                    <button class="prev" onclick="moveSlide('slider-fase1', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider-fase1', 1)">&#10095;</button>
 
-      <!-- FASE 4 -->
-      <div class="timeline-phase">
-        <div class="timeline-content">
-          <h3>Fase 4: Samling & Endeligt Resultat</h3>
-          <p>Montering af den færdige paraply samt de afsluttende funktionstest før videodokumentationen.</p>
-          <div class="phase-images">
-            <img src="fase4_billede1.jpg" alt="Fase 4 Færdigt Produkt">
-          </div>
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide('slider-fase1', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase1', 1)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase1', 2)"></span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <!-- FASE 2 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 2 · ELEKTRONIK & SENSORER</div>
+            <div class="timeline-content">
+                <h3>Montering af LED-strips & Styreprint</h3>
+                <p>
+                    Kabling og lodning af LED-strips langs paraplyens skinner samt integration af servomotorer til åbne/lukke-funktionen.
+                </p>
+
+                <div class="slider-container" id="slider-fase2">
+                    <div class="slider">
+                        <img src="P5.jpeg" class="slide active" alt="Elektronik test 1">
+                        <img src="P6.jpeg" class="slide" alt="Elektronik test 2">
+                        <img src="P9.jpeg" class="slide" alt="Elektronik test 3">
+                    </div>
+
+                    <button class="prev" onclick="moveSlide('slider-fase2', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider-fase2', 1)">&#10095;</button>
+
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide('slider-fase2', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase2', 1)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase2', 2)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FASE 3 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 3 · 3D-PRINTEDE HÆNGSLER & BESLAG</div>
+            <div class="timeline-content">
+                <h3>Specialdesignede Komponenter</h3>
+                <p>
+                    Udvikling og 3D-print af skræddersyede beslag, der forbinder mikrocontrolleren og servomotorerne med paraplyens centrale akse.
+                </p>
+
+                <div class="slider-container" id="slider-fase3">
+                    <div class="slider">
+                        <img src="P7.jpeg" class="slide active" alt="3D Print 1">
+                        <img src="P8.jpeg" class="slide" alt="3D Print 2">
+                    </div>
+
+                    <button class="prev" onclick="moveSlide('slider-fase3', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider-fase3', 1)">&#10095;</button>
+
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide('slider-fase3', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase3', 1)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FASE 4 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 4 · DET FÆRDIGE RESULTAT</div>
+            <div class="timeline-content">
+                <h3>Endelig Test & Opstilling</h3>
+                <p>
+                    Den samlede installation klar til fremvisning med synkroniseret lysanimation og bevægelse.
+                </p>
+
+                <div class="slider-container" id="slider-fase4">
+                    <div class="slider">
+                        <img src="P11.jpeg" class="slide active" alt="Paraply Resultat 1">
+                        <img src="P13.jpeg" class="slide" alt="Paraply Resultat 2">
+                    </div>
+
+                    <button class="prev" onclick="moveSlide('slider-fase4', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider-fase4', 1)">&#10095;</button>
+
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide('slider-fase4', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase4', 1)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
-
-    <!-- ========================================== -->
-    <!-- PARAPLY VIDEO SLIDER I BUNDEN             -->
-    <!-- ========================================== -->
+    <!-- SAMLET VIDEO SLIDER I BUNDEN -->
     <div class="video-section">
-      <div class="section-title">Videodokumentation</div>
-      <h2>Samlet videoproces</h2>
+        <div class="section-title">Videodokumentation</div>
+        <h2>Samlet videoproces for paraplyen</h2>
 
-      <div class="slider-container" id="paraply-slider">
-        <div class="slider">
-          <!-- Slide 1: Opdelt Video 1 - Del 1 -->
-          <video class="slide active" autoplay loop muted playsinline>
-            <source src="video1_del1.mp4" type="video/mp4">
-          </video>
+        <div class="slider-container" id="video-slider">
+            <div class="slider">
+                <!-- Video Slide 1 -->
+                <video class="slide active" autoplay loop muted playsinline>
+                    <source src="P_video1.mp4" type="video/mp4">
+                </video>
 
-          <!-- Slide 2: Opdelt Video 1 - Del 2 -->
-          <video class="slide" autoplay loop muted playsinline>
-            <source src="video1_del2.mp4" type="video/mp4">
-          </video>
+                <!-- Video Slide 2 -->
+                <video class="slide" autoplay loop muted playsinline>
+                    <source src="P_video2.mp4" type="video/mp4">
+                </video>
 
-          <!-- Slide 3: Video 2 (Beskåret med fokus på paraplyen) -->
-          <video class="slide crop-umbrella" autoplay loop muted playsinline>
-            <source src="paraply_video.mp4" type="video/mp4">
-          </video>
+                <!-- Video Slide 3 (med beskæring/zoom) -->
+                <video class="slide crop-umbrella" autoplay loop muted playsinline>
+                    <source src="P_video3.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <button class="prev" onclick="moveSlide('video-slider', -1)">&#10094;</button>
+            <button class="next" onclick="moveSlide('video-slider', 1)">&#10095;</button>
+
+            <div class="dots-container">
+                <span class="dot active" onclick="currentSlide('video-slider', 0)"></span>
+                <span class="dot" onclick="currentSlide('video-slider', 1)"></span>
+                <span class="dot" onclick="currentSlide('video-slider', 2)"></span>
+            </div>
         </div>
-
-        <!-- Navigation pile -->
-        <button class="prev" onclick="moveSlide('paraply-slider', -1)">&#10094;</button>
-        <button class="next" onclick="moveSlide('paraply-slider', 1)">&#10095;</button>
-
-        <!-- Prikker i bunden -->
-        <div class="dots-container">
-          <span class="dot active" onclick="currentSlide('paraply-slider', 0)"></span>
-          <span class="dot" onclick="currentSlide('paraply-slider', 1)"></span>
-          <span class="dot" onclick="currentSlide('paraply-slider', 2)"></span>
-        </div>
-      </div>
     </div>
 
-  </div>
+    <!-- ARDUINO KODE SEKTION -->
+    <div class="section-title">Teknikken</div>
+    <h2>Arduino Kildekode (Paraplystyring)</h2>
 
+    <div class="code-section">
+        <div class="code-header">
+            <span>paraply_styring.ino</span>
+        </div>
+        <pre><code>#include &lt;FastLED.h&gt;
+#include &lt;Servo.h&gt;
 
-  <!-- ========================================== -->
-  <!-- JAVASCRIPT LOGIK TIL SLIDER               -->
-  <!-- ========================================== -->
-  <script>
+#define BRIGHTNESS 120
+#define SERVO_PIN 9
+#define NUM_LEDS 60
+
+CRGB leds[NUM_LEDS];
+Servo umbrellaServo;
+
+int pos = 0;
+int dir = 1;
+
+void setup() {
+  FastLED.addLeds&lt;NEOPIXEL, 6&gt;(leds, NUM_LEDS);
+  FastLED.setBrightness(BRIGHTNESS);
+  umbrellaServo.attach(SERVO_PIN);
+}
+
+void loop() {
+  // Lys-animation
+  for (int i = 0; i &lt; NUM_LEDS; i++) {
+    leds[i] = CHSV((millis() / 10 + i * 4) % 255, 200, 255);
+  }
+  FastLED.show();
+
+  // Mekanisk styring af paraply
+  umbrellaServo.write(pos);
+  pos += dir;
+
+  if (pos &gt;= 140 || pos &lt;= 10) {
+    dir = -dir;
+  }
+
+  delay(20);
+}</code></pre>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Casper Elmelund Poulsen · Portfolio
+</footer>
+
+<script>
+    const slidersState = {};
+
+    function initSliders() {
+        document.querySelectorAll('.slider-container').forEach(container => {
+            const id = container.id;
+            slidersState[id] = 0;
+            showSlide(id, 0);
+        });
+    }
+
     function showSlide(sliderId, index) {
-      const container = document.getElementById(sliderId);
-      if (!container) return;
+        const container = document.getElementById(sliderId);
+        if (!container) return;
 
-      const slides = container.querySelectorAll('.slide');
-      const dots = container.querySelectorAll('.dot');
-      
-      if (slides.length === 0) return;
+        const slides = container.querySelectorAll('.slide');
+        const dots = container.querySelectorAll('.dot');
 
-      // Uendeligt loop
-      let newIndex = index;
-      if (newIndex >= slides.length) newIndex = 0;
-      if (newIndex < 0) newIndex = slides.length - 1;
+        if (index >= slides.length) slidersState[sliderId] = 0;
+        else if (index < 0) slidersState[sliderId] = slides.length - 1;
+        else slidersState[sliderId] = index;
 
-      // Skjul alle slides og sæt videoer på pause
-      slides.forEach(slide => {
-        slide.classList.remove('active');
-        if (slide.tagName === 'VIDEO') {
-          slide.pause();
-        }
-      });
+        const activeIndex = slidersState[sliderId];
 
-      // Nulstil prikker
-      dots.forEach(dot => dot.classList.remove('active'));
+        slides.forEach((slide, i) => {
+            if (i === activeIndex) {
+                slide.classList.add('active');
+                if (slide.tagName === 'VIDEO') {
+                    slide.currentTime = 0;
+                    slide.play().catch(e => console.log('Autoplay info:', e));
+                }
+            } else {
+                slide.classList.remove('active');
+                if (slide.tagName === 'VIDEO') {
+                    slide.pause();
+                }
+            }
+        });
 
-      // Aktiver det valgte slide
-      slides[newIndex].classList.add('active');
-      if (dots[newIndex]) {
-        dots[newIndex].classList.add('active');
-      }
-
-      // Genstart og afspil den aktive video
-      const activeVideo = slides[newIndex];
-      if (activeVideo && activeVideo.tagName === 'VIDEO') {
-        activeVideo.currentTime = 0;
-        activeVideo.play();
-      }
+        dots.forEach((dot, i) => {
+            if (i === activeIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
     }
 
     function moveSlide(sliderId, step) {
-      const container = document.getElementById(sliderId);
-      if (!container) return;
-
-      const slides = container.querySelectorAll('.slide');
-      let activeIndex = 0;
-
-      slides.forEach((slide, idx) => {
-        if (slide.classList.contains('active')) {
-          activeIndex = idx;
-        }
-      });
-
-      showSlide(sliderId, activeIndex + step);
+        showSlide(sliderId, slidersState[sliderId] + step);
     }
 
     function currentSlide(sliderId, index) {
-      showSlide(sliderId, index);
+        showSlide(sliderId, index);
     }
-  </script>
+
+    document.addEventListener('DOMContentLoaded', initSliders);
+</script>
 
 </body>
 </html>
