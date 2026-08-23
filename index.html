@@ -88,282 +88,305 @@
     overflow: hidden;
 }
 
-#hero::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, rgba(168,85,247,0.25) 0%, rgba(192,132,252,0.05) 50%, transparent 70%);
-    filter: blur(60px);
-    z-index: 0;
-    pointer-events: none;
-}
+<!-- HERO SEKTION -->
+<section id="hero">
+    <!-- Canvas til interaktive grønne partikler -->
+    <canvas id="hero-canvas"></canvas>
+    
+    <!-- Dynamisk lys der følger musen -->
+    <div id="mouse-glow"></div>
 
-        .hero-content {
-            max-width: 850px;
-            position: relative;
-            z-index: 2;
+    <div class="hero-content">
+        <!-- Status indikator -->
+        <div class="status-badge">
+            <span class="status-dot"></span>
+            Kandidatstuderende i Digital Transformation · RUC
+        </div>
+
+        <h1>Casper<br><span class="highlight-text">Elmelund Poulsen</span></h1>
+        
+        <p class="hero-description">
+            Kreativ teknolog med fokus på interaktive kunstinstallationer, fysisk computing og kinetisk design.
+        </p>
+
+        <!-- Interaktive tags -->
+        <div class="skills-tags">
+            <span class="tag">Creative Technology</span>
+            <span class="tag">Interaktiv Kunst</span>
+            <span class="tag">Physical Computing</span>
+            <span class="tag">Digital Transformation</span>
+        </div>
+
+        <a href="#projects" class="cta-btn">Se mine projekter ↓</a>
+    </div>
+</section>
+
+<style>
+    /* HERO CONTAINER */
+    #hero {
+        position: relative;
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #080b09; /* Mørk, dyb grønlig-sort */
+        overflow: hidden;
+        padding: 40px 20px;
+        color: #f4f4f5;
+    }
+
+    /* PARTIKEL CANVAS */
+    #hero-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    /* DYNAMISK MUS-GLØD */
+    #mouse-glow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(74, 222, 128, 0.15) 0%, rgba(16, 185, 129, 0.03) 50%, transparent 70%);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 2;
+        transition: width 0.3s, height 0.3s;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 3;
+        text-align: center;
+        max-width: 800px;
+    }
+
+    /* STATUS BADGE */
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(74, 222, 128, 0.08);
+        border: 1px solid rgba(74, 222, 128, 0.25);
+        color: #4ade80;
+        padding: 6px 16px;
+        border-radius: 30px;
+        font-size: 0.85rem;
+        margin-bottom: 25px;
+        letter-spacing: 0.5px;
+    }
+
+    .status-dot {
+        width: 8px;
+        height: 8px;
+        background: #4ade80;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #4ade80;
+        animation: pulse 2s infinite;
+    }
+
+    /* TYPOGRAFI */
+    h1 {
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 20px;
+        letter-spacing: -1px;
+    }
+
+    .highlight-text {
+        color: #4ade80; /* Behagelig mint/smaragdgrøn */
+        text-shadow: 0 0 30px rgba(74, 222, 128, 0.25);
+    }
+
+    .hero-description {
+        color: #9ca3af;
+        font-size: 1.15rem;
+        max-width: 600px;
+        margin: 0 auto 30px;
+        line-height: 1.6;
+    }
+
+    /* INTERAKTIVE TAGS */
+    .skills-tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 40px;
+    }
+
+    .tag {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #d1d5db;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+        cursor: default;
+    }
+
+    .tag:hover {
+        background: rgba(74, 222, 128, 0.1);
+        border-color: #4ade80;
+        color: #4ade80;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(74, 222, 128, 0.15);
+    }
+
+    /* CTA KNAP */
+    .cta-btn {
+        display: inline-block;
+        color: #080b09;
+        background: #4ade80;
+        padding: 12px 28px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);
+    }
+
+    .cta-btn:hover {
+        background: #22c55e;
+        transform: translateY(-3px);
+        box-shadow: 0 0 25px rgba(74, 222, 128, 0.5);
+    }
+
+    @keyframes pulse {
+        0% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(0.8); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+</style>
+
+<script>
+    // DYNAMISK MUS-GLØD
+    const mouseGlow = document.getElementById('mouse-glow');
+    const heroSection = document.getElementById('hero');
+
+    heroSection.addEventListener('mousemove', (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        mouseGlow.style.left = `${x}px`;
+        mouseGlow.style.top = `${y}px`;
+    });
+
+    // INTERAKTIVT PARTIKELSYSTEM
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    let mouse = { x: null, y: null, radius: 120 };
+
+    function resizeCanvas() {
+        canvas.width = heroSection.offsetWidth;
+        canvas.height = heroSection.offsetHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    heroSection.addEventListener('mousemove', (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+    });
+
+    heroSection.addEventListener('mouseleave', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
         }
 
-        .hero small {
-            color: #c084fc;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 0.8rem;
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
         }
 
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 6.5rem);
-            line-height: 0.95;
-            margin: 25px 0;
-            letter-spacing: -4px;
+        draw() {
+            ctx.fillStyle = 'rgba(74, 222, 128, 0.4)';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
         }
+    }
 
-        .hero h1 span {
-            color: #c084fc;
+    function initParticles() {
+        particles = [];
+        const count = Math.floor((canvas.width * canvas.height) / 15000);
+        for (let i = 0; i < count; i++) {
+            particles.push(new Particle());
         }
+    }
 
-        .hero p {
-            max-width: 650px;
-            margin: auto;
-            color: #b5b5bd;
-            font-size: 1.15rem;
-        }
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
 
-        .button {
-            display: inline-block;
-            margin-top: 35px;
-            padding: 13px 24px;
-            border: 1px solid #a855f7;
-            border-radius: 30px;
-            color: white;
-            text-decoration: none;
-            transition: 0.3s;
-        }
+        // Forbind partikler med hinanden og musen
+        for (let a = 0; a < particles.length; a++) {
+            for (let b = a; b < particles.length; b++) {
+                let dx = particles[a].x - particles[b].x;
+                let dy = particles[a].y - particles[b].y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
 
-        .button:hover {
-            background: #a855f7;
-            transform: translateY(-2px);
-        }
-
-        /* SECTIONS */
-        section {
-            max-width: 1100px;
-            margin: auto;
-            padding: 110px 25px;
-        }
-
-        .section-label {
-            color: #a855f7;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 0.75rem;
-            margin-bottom: 12px;
-        }
-
-        h2 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            margin-bottom: 35px;
-        }
-
-        /* ABOUT SECTION */
-        .about {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 50px;
-            align-items: start;
-        }
-
-        .about-text {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
-
-        .about-text p {
-            color: #b5b5bd;
-            font-size: 1.05rem;
-        }
-
-        .about-image {
-            width: 100%;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .about-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-        }
-
-        /* SKILLS */
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .skill {
-            padding: 10px 17px;
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 25px;
-            color: #ddd;
-            background: rgba(255,255,255,0.03);
-            transition: 0.3s;
-        }
-
-        .skill:hover {
-            border-color: #a855f7;
-            transform: translateY(-3px);
-        }
-
-        /* PROJECTS */
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
-        }
-
-        .project {
-            min-height: 330px;
-            padding: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 18px;
-            background: linear-gradient(
-                145deg,
-                rgba(255,255,255,0.05),
-                rgba(255,255,255,0.015)
-            );
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            transition: 0.4s;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .project:hover {
-            transform: translateY(-8px);
-            border-color: rgba(192,132,252,0.6);
-        }
-
-        .project-year {
-            color: #c084fc;
-            font-size: 0.8rem;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-        }
-
-        .project h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .project p {
-            color: #aaa;
-            font-size: 0.95rem;
-        }
-
-        /* EXPERIENCE SECTION OPDATERET */
-        .experience-container {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 50px;
-            align-items: start;
-            border-left: 1px solid #a855f7;
-            padding-left: 30px;
-        }
-
-        .experience-text h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .experience-text p {
-            color: #aaa;
-        }
-
-        .experience-image {
-            width: 100%;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .experience-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-        }
-
-        /* CONTACT */
-        .contact {
-            text-align: center;
-        }
-
-        .contact p {
-            color: #aaa;
-            max-width: 600px;
-            margin: auto;
-        }
-
-        .social {
-            margin-top: 30px;
-        }
-
-        .social a {
-            color: #c084fc;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: #666;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            font-size: 0.85rem;
-        }
-
-        /* MOBILE */
-        @media (max-width: 800px) {
-            nav ul {
-                gap: 12px;
+                if (dist < 90) {
+                    ctx.strokeStyle = `rgba(74, 222, 128, ${1 - dist / 90 * 0.15})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[a].x, particles[a].y);
+                    ctx.lineTo(particles[b].x, particles[b].y);
+                    ctx.stroke();
+                }
             }
 
-            nav a {
-                font-size: 0.75rem;
-            }
+            if (mouse.x !== null) {
+                let mdx = particles[a].x - mouse.x;
+                let mdy = particles[a].y - mouse.y;
+                let mdist = Math.sqrt(mdx * mdx + mdy * mdy);
 
-            .about {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .experience-container {
-                grid-template-columns: 1fr;
-                gap: 30px;
-                padding-left: 20px;
-            }
-
-            .projects {
-                grid-template-columns: 1fr;
-            }
-
-            .hero h1 {
-                letter-spacing: -2px;
+                if (mdist < mouse.radius) {
+                    ctx.strokeStyle = `rgba(74, 222, 128, ${1 - mdist / mouse.radius * 0.4})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[a].x, particles[a].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
             }
         }
+
+        requestAnimationFrame(animate);
+    }
+
+    initParticles();
+    animate();
+</script>
     </style>
 </head>
 
