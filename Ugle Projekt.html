@@ -1,1 +1,569 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uglen - Interaktiv Installation | Casper Elmelund Poulsen</title>
 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0b0f;
+            color: #f4f4f5;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 60px 25px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #c084fc;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 40px;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .project-year {
+            color: #c084fc;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .project-header h1 {
+            font-size: clamp(1.8rem, 4.5vw, 4rem);
+            margin-bottom: 20px;
+            white-space: nowrap;
+        }
+
+        .project-description {
+            color: #b5b5bd;
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        /* TOP BILLEDE */
+        .main-media-container {
+            width: 60%;
+            margin: 40px auto 80px;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .main-media-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .section-title {
+            color: #a855f7;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
+
+        /* TIDSLINJE */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid rgba(168, 85, 247, 0.3);
+            margin-bottom: 90px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -37px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #a855f7;
+            box-shadow: 0 0 10px #a855f7;
+        }
+
+        .timeline-date {
+            color: #c084fc;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        .timeline-content p {
+            color: #b5b5bd;
+            margin-bottom: 20px;
+        }
+
+        /* SLIDER STYLING */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.4);
+            min-height: 250px;
+        }
+
+        .slider {
+            display: block;
+            width: 100%;
+        }
+
+        .slide {
+            width: 100%;
+            display: none;
+            height: 100%;
+            max-height: 550px;
+            object-fit: cover;
+            margin-bottom: 0;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        /* NAVIGATION PILE */
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(11, 11, 15, 0.8);
+            color: #c084fc;
+            border: 1px solid rgba(192, 132, 252, 0.4);
+            font-size: 1.2rem;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: 0.3s;
+            user-select: none;
+            z-index: 100;
+        }
+
+        .prev:hover, .next:hover {
+            background: #a855f7;
+            color: white;
+        }
+
+        .prev { left: 12px; }
+        .next { right: 12px; }
+
+        .dots-container {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 100;
+        }
+
+        .dot {
+            width: 20px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active, .dot:hover {
+            background: #c084fc;
+            width: 30px;
+        }
+
+        /* VIDEO SEKTION I BUNDEN */
+        .video-section {
+            margin-top: 80px;
+            margin-bottom: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 50px;
+        }
+
+        /* ARDUINO KODE SEKTION */
+        .code-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .code-header span {
+            font-family: monospace;
+            color: #c084fc;
+            font-size: 0.9rem;
+        }
+
+        pre {
+            background: #050508;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #4ade80;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 800px) {
+            .main-media-container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <a href="index.html" class="back-link">← Tilbage til portfolio</a>
+
+    <header class="project-header">
+        <div class="project-year">Interaktiv Installation · 2026</div>
+        <h1>Den Interaktive Ugle</h1>
+        <p class="project-description">
+            En kinetisk og interaktiv installation inspireret af ugglens opmærksomme væsen. 
+            Værket reagerer på bevægelse i rummet ved at dreje hovedet og ændre lysudtryk i øjnene.
+        </p>
+    </header>
+
+    <!-- TOP BILLEDE FOR UGLEN -->
+    <div class="main-media-container">
+        <img src="owl.jpg" alt="Uglen hovedbillede">
+    </div>
+
+    <!-- PROCESSEN / TIDSLINJE MED BILLEDER -->
+    <div class="section-title">Processen</div>
+    <h2>Fra koncept til interaktiv ugle</h2>
+
+    <div class="timeline">
+
+        <!-- FASE 1 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 1 · SKITSERING & MOP-UP</div>
+            <div class="timeline-content">
+                <h3>Formgivning og Proportionalitet</h3>
+                <p>
+                    De første skitser og udskæringer af ugglens krop samt planlægning af mekanikken til hovedets rotation.
+                </p>
+
+                <div class="slider-container" id="slider-fase1">
+                    <div class="slider">
+                        <img src="U1.jpeg" class="slide active" alt="Ugle Fase 1 Billede 1">
+                        <img src="U2.jpeg" class="slide" alt="Ugle Fase 1 Billede 2">
+                        <img src="U3.jpeg" class="slide" alt="Ugle Fase 1 Billede 3">
+                    </div>
+
+                    <button class="prev" onclick="moveSlide('slider-fase1', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider-fase1', 1)">&#10095;</button>
+
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide('slider-fase1', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase1', 1)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase1', 2)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FASE 2 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 2 · ELEKTRONIK & LYS</div>
+            <div class="timeline-content">
+                <h3>Integration af Øjen-LEDs & Sensorer</h3>
+                <p>
+                    Montering af LED-ringe som uglen øjne samt placering af PIR/bevægelsessensorer til registrering af besøgende.
+                </p>
+
+                <div class="slider-container" id="slider-fase2">
+                    <div class="slider">
+                        <img src="U4.jpeg" class="slide active" alt="Ugle Fase 2 Billede 1">
+                        <img src="U5.jpeg" class="slide" alt="Ugle Fase 2 Billede 2">
+                        <img src="U6.jpeg" class="slide" alt="Ugle Fase 2 Billede 3">
+                    </div>
+
+                    <button class="prev" onclick="moveSlide('slider-fase2', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider-fase2', 1)">&#10095;</button>
+
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide('slider-fase2', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase2', 1)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase2', 2)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FASE 3 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 3 · 3D-PRINTEDE MEKANISMER</div>
+            <div class="timeline-content">
+                <h3>Specialkonstruerede Tandhjul og Beslag</h3>
+                <p>
+                    Design og 3D-print af den interne drejemekanisme, der gør det muligt for servomotoren at rotere ugglens hoved jævnt.
+                </p>
+
+                <div class="slider-container" id="slider-fase3">
+                    <div class="slider">
+                        <img src="U7.jpeg" class="slide active" alt="Ugle Fase 3 Billede 1">
+                        <img src="U8.jpeg" class="slide" alt="Ugle Fase 3 Billede 2">
+                    </div>
+
+                    <button class="prev" onclick="moveSlide('slider-fase3', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider-fase3', 1)">&#10095;</button>
+
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide('slider-fase3', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase3', 1)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FASE 4 -->
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">FASE 4 · SAMLING & SLUTJUSTERING</div>
+            <div class="timeline-content">
+                <h3>Færdig Installation</h3>
+                <p>
+                    Kombination af fjer/overfladestruktur, mekanik og programmering for den endelige interaktive oplevelse.
+                </p>
+
+                <div class="slider-container" id="slider-fase4">
+                    <div class="slider">
+                        <img src="U9.jpeg" class="slide active" alt="Ugle Fase 4 Billede 1">
+                        <img src="U10.jpeg" class="slide" alt="Ugle Fase 4 Billede 2">
+                    </div>
+
+                    <button class="prev" onclick="moveSlide('slider-fase4', -1)">&#10094;</button>
+                    <button class="next" onclick="moveSlide('slider-fase4', 1)">&#10095;</button>
+
+                    <div class="dots-container">
+                        <span class="dot active" onclick="currentSlide('slider-fase4', 0)"></span>
+                        <span class="dot" onclick="currentSlide('slider-fase4', 1)"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SAMLET VIDEO SLIDER I BUNDEN -->
+    <div class="video-section">
+        <div class="section-title">Videodokumentation</div>
+        <h2>Samlet videoproces for uglen</h2>
+
+        <div class="slider-container" id="video-slider">
+            <div class="slider">
+                <!-- Video Slide -->
+                <video class="slide active" autoplay loop muted playsinline>
+                    <source src="ugle.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <button class="prev" onclick="moveSlide('video-slider', -1)">&#10094;</button>
+            <button class="next" onclick="moveSlide('video-slider', 1)">&#10095;</button>
+
+            <div class="dots-container">
+                <span class="dot active" onclick="currentSlide('video-slider', 0)"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ARDUINO KODE SEKTION -->
+    <div class="section-title">Teknikken</div>
+    <h2>Arduino Kildekode (Uglestyring)</h2>
+
+    <div class="code-section">
+        <div class="code-header">
+            <span>ugle_styring.ino</span>
+        </div>
+        <pre><code>#include &lt;FastLED.h&gt;
+#include &lt;Servo.h&gt;
+
+#define NUM_LEDS 24
+#define LED_PIN 5
+#define SERVO_PIN 9
+#define PIR_PIN 2
+
+CRGB leds[NUM_LEDS];
+Servo owlHead;
+
+int headPosition = 90;
+bool motionDetected = false;
+
+void setup() {
+  FastLED.addLeds&lt;NEOPIXEL, LED_PIN&gt;(leds, NUM_LEDS);
+  FastLED.setBrightness(120);
+  
+  owlHead.attach(SERVO_PIN);
+  owlHead.write(headPosition);
+  
+  pinMode(PIR_PIN, INPUT);
+}
+
+void loop() {
+  motionDetected = digitalRead(PIR_PIN);
+
+  if (motionDetected) {
+    // Når bevægelse registreres: Øjnene lyser op i varm ravgul og hovedet drejer mod kilden
+    fill_solid(leds, NUM_LEDS, CRGB::Amber);
+    FastLED.show();
+    
+    // Drej hovedet søgende
+    owlHead.write(45);
+    delay(400);
+    owlHead.write(135);
+    delay(400);
+    owlHead.write(90);
+    delay(300);
+  } else {
+    // Hviletilstand: Roligt pulserende dæmpet lys i øjnene
+    float breath = (exp(sin(millis()/2000.0*PI)) - 0.36787944)*108.0;
+    fill_solid(leds, NUM_LEDS, CRGB::Gold);
+    FastLED.setBrightness(breath);
+    FastLED.show();
+    
+    owlHead.write(90); // Centreret position
+    delay(50);
+  }
+}</code></pre>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Casper Elmelund Poulsen · Portfolio
+</footer>
+
+<script>
+    const slidersState = {};
+
+    function initSliders() {
+        document.querySelectorAll('.slider-container').forEach(container => {
+            const id = container.id;
+            slidersState[id] = 0;
+            showSlide(id, 0);
+        });
+    }
+
+    function showSlide(sliderId, index) {
+        const container = document.getElementById(sliderId);
+        if (!container) return;
+
+        const slides = container.querySelectorAll('.slide');
+        const dots = container.querySelectorAll('.dot');
+
+        if (index >= slides.length) slidersState[sliderId] = 0;
+        else if (index < 0) slidersState[sliderId] = slides.length - 1;
+        else slidersState[sliderId] = index;
+
+        const activeIndex = slidersState[sliderId];
+
+        slides.forEach((slide, i) => {
+            if (i === activeIndex) {
+                slide.classList.add('active');
+                if (slide.tagName === 'VIDEO') {
+                    slide.currentTime = 0;
+                    slide.play().catch(e => console.log('Autoplay info:', e));
+                }
+            } else {
+                slide.classList.remove('active');
+                if (slide.tagName === 'VIDEO') {
+                    slide.pause();
+                }
+            }
+        });
+
+        dots.forEach((dot, i) => {
+            if (i === activeIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+
+    function moveSlide(sliderId, step) {
+        showSlide(sliderId, slidersState[sliderId] + step);
+    }
+
+    function currentSlide(sliderId, index) {
+        showSlide(sliderId, index);
+    }
+
+    document.addEventListener('DOMContentLoaded', initSliders);
+</script>
+
+</body>
+</html>
