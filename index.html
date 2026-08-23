@@ -82,18 +82,25 @@
             overflow: hidden;
         }
 
-        .hero::before {
-            content: "";
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: #7c3aed;
-            filter: blur(180px);
-            opacity: 0.15;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+    /* Tilføj denne baggrundseffekt til din hero-sektion */
+#hero {
+    position: relative;
+    overflow: hidden;
+}
+
+#hero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(168,85,247,0.25) 0%, rgba(192,132,252,0.05) 50%, transparent 70%);
+    filter: blur(60px);
+    z-index: 0;
+    pointer-events: none;
+}
 
         .hero-content {
             max-width: 850px;
